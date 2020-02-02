@@ -26,7 +26,7 @@ public class VehicleModelAdapter extends BaseAdapter implements Filterable {
     private List<VehicleModel> mDisplayedModels;    // Values to be displayed
 
     public VehicleModelAdapter(@NonNull Context context, List<VehicleModel> vehicleModelList) {
-        //super(context, R.layout.selection_list_row);
+        //super(context, R.layout.list_row_vehicle_selection);
         sortVehicleModels(vehicleModelList);
         this.vehicleModelList = vehicleModelList;
         this.mDisplayedModels = vehicleModelList;
@@ -57,7 +57,7 @@ public class VehicleModelAdapter extends BaseAdapter implements Filterable {
         View row = convertView;
         if (row == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            row = inflater.inflate(R.layout.selection_list_row, parent, false);
+            row = inflater.inflate(R.layout.list_row_vehicle_selection, parent, false);
         }
         TextView textView = (TextView) row.findViewById(R.id.listText);
         VehicleModel list = mDisplayedModels.get(position);

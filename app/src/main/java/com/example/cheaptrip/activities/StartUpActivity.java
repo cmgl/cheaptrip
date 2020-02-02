@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 
@@ -18,9 +19,11 @@ import com.example.cheaptrip.database.GasStationDatabase;
 import com.example.cheaptrip.database.VehicleDatabase;
 import com.example.cheaptrip.handlers.StartupListener;
 import com.example.cheaptrip.handlers.rest.RestListener;
+import com.example.cheaptrip.handlers.rest.station.GasStationHandler;
 import com.example.cheaptrip.handlers.rest.station.GasStationHistoryHandler;
 import com.example.cheaptrip.handlers.rest.station.GasStationHistoryPriceHandler;
 import com.example.cheaptrip.handlers.rest.vehicle.VehicleDataSetHandler;
+import com.example.cheaptrip.models.TripGasStation;
 import com.example.cheaptrip.models.fueleconomy.VehicleDataSet;
 import com.example.cheaptrip.models.tankerkoenig.Station;
 import com.example.cheaptrip.services.DatabasePopulationService;
@@ -45,12 +48,16 @@ public class StartUpActivity extends AppCompatActivity {
         DatabasePopulationService databasePopulationService = new DatabasePopulationService(this, new StartupListener() {
             @Override
             public void onVehiclesLoaded() {
-                Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
             }
         });
 
         databasePopulationService.execute();
+
+
+
+
 
 
      /*   GasStationHistoryHandler gasStationHistoryHandler = new GasStationHistoryHandler(2019,9,1);

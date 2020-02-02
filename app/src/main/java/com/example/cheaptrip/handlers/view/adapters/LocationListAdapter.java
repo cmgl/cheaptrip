@@ -13,19 +13,17 @@ import androidx.annotation.NonNull;
 import com.example.cheaptrip.R;
 
 import com.example.cheaptrip.models.photon.Location;
-import com.example.cheaptrip.models.photon.Properties;
 
 import java.util.List;
 
 public class LocationListAdapter extends BaseAdapter {
     private Context context;
-    private List<Location> locationList;
+
 
     private List<Location> mDisplayedLocations;    // Values to be displayed
 
     public LocationListAdapter(@NonNull Context context, List<Location> locationList) {
-        //super(context, R.layout.selection_list_row);
-        this.locationList = locationList;
+        //super(context, R.layout.list_row_vehicle_selection);
         this.mDisplayedLocations = locationList;
 
         this.context = context;
@@ -54,7 +52,7 @@ public class LocationListAdapter extends BaseAdapter {
         View row = convertView;
         if (row == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            row = inflater.inflate(R.layout.selection_list_row, parent, false);
+            row = inflater.inflate(R.layout.list_row_vehicle_selection, parent, false);
         }
         TextView textView = (TextView) row.findViewById(R.id.listText);
         Location location = mDisplayedLocations.get(position);

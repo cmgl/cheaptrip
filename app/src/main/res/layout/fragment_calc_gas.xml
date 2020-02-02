@@ -64,12 +64,33 @@
                 android:layout_marginTop="10dp"
                 card_view:cardElevation="10dp">
 
-            <TextView
-        android:id="@+id/tv_gasstation_location"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#FFFFFF"
-        android:textSize="15sp"/>
+                <TextView
+                    android:id="@+id/tv_gasstation_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#FFFFFF"
+                    android:textSize="15sp"/>
+
+            </androidx.cardview.widget.CardView>
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_view_gastation_opening"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                card_view:cardBackgroundColor="#D0380000"
+                card_view:cardCornerRadius="4dp"
+                android:layout_marginTop="10dp"
+                card_view:cardElevation="10dp">
+
+                <TextView
+                    android:id="@+id/tv_gasstation_opening"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#FFFFFF"
+                    android:textSize="15sp"/>
+
             </androidx.cardview.widget.CardView>
         </LinearLayout>
     </ScrollView>

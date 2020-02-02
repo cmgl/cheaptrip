@@ -18,6 +18,7 @@ import retrofit2.http.Streaming;
  */
 public interface GasStationClient {
 
+    String API_KEY = "ad5b5cac-db85-4516-832d-1bc90df23946";
     /**
      * Enum to determine the Fuel Type for the REST-API Call
      */
@@ -58,7 +59,7 @@ public interface GasStationClient {
     }
 
 
-    final static String API_KEY = "ad5b5cac-db85-4516-832d-1bc90df23946";
+
 
     /**
      * TODO: Document
@@ -75,15 +76,15 @@ public interface GasStationClient {
                                              @Query("rad") Double radius,
                                              @Query("type") FuelType type,
                                              @Query("sort") Sort sort
-                                             );
+    );
 
     @Raw
     @GET("json/list.php?apikey="+API_KEY)
     Call<String> GetAllForRadiusJSON(@Query("lat") Double lat,
-                                             @Query("lng") Double lon,
-                                             @Query("rad") Double radius,
-                                             @Query("type") String type,
-                                             @Query("sort") String sort
+                                     @Query("lng") Double lon,
+                                     @Query("rad") Double radius,
+                                     @Query("type") String type,
+                                     @Query("sort") String sort
     );
 
 

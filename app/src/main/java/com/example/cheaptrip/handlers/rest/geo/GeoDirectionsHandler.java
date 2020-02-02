@@ -139,7 +139,7 @@ public class GeoDirectionsHandler extends RestHandler<TripRoute,String> {
     private String generateBody(List<TripLocation> tripLocationList){
 
         if(tripLocationList == null){
-            Log.e("CHEAPTRIP", "Cannot create Body: tripLocationList is null");
+            Log.e("CHEAPTRIP", "Cannot create Body: mTripLocationList is null");
             return null;
         }
 

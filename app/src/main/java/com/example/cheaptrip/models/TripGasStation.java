@@ -1,16 +1,34 @@
 package com.example.cheaptrip.models;
 
+import com.example.cheaptrip.models.tankerkoenig.OpeningTime;
+import com.example.cheaptrip.models.tankerkoenig.OpeningTimes;
 import com.example.cheaptrip.models.tankerkoenig.Station;
+import com.google.gson.Gson;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TripGasStation extends TripLocation {
 
-    private double mPriceE5;
-    private double mPriceE10;
-    private double mPriceDiesel;
+    private Double mPriceE5;
+    private Double mPriceE10;
+    private Double mPriceDiesel;
 
     private String mBrand;
 
-    private boolean bIsOpen;
+    private Boolean bIsOpen;
+
+
+    private OpeningTimes openingTimes;
+
+    public OpeningTimes getOpeningTimes() {
+        return openingTimes;
+    }
+
 
     public TripGasStation(Station station) {
 
@@ -22,7 +40,7 @@ public class TripGasStation extends TripLocation {
         String place = station.getPlace();
         String houseNumber = station.getHouseNumber();
         String street = station.getStreet();
-        int postcode = station.getPostCode();
+        Integer postcode = station.getPostCode();
 
         setLatitdue(lat);
         setLongitude(lon);
@@ -39,6 +57,12 @@ public class TripGasStation extends TripLocation {
         mPriceDiesel = station.getDiesel();
         mBrand = station.getBrand();
         bIsOpen = station.isOpen();
+
+        Gson gson = new Gson();
+        String strOpeningTime = station.getOpeningtimes_json();
+        //strOpeningTime = strOpeningTime.substring(1,strOpeningTime.length()-2); // remove cursive brackets --> make it list
+
+        openingTimes =  gson.fromJson(strOpeningTime,OpeningTimes.class);
     }
 
     public double getPriceE5() {
@@ -76,4 +100,9 @@ public class TripGasStation extends TripLocation {
     public boolean isOpen() {
         return bIsOpen;
     }
+
+    public void setOpeningTimes(OpeningTimes openingTimes) {
+        this.openingTimes = openingTimes;
+    }
+
 }

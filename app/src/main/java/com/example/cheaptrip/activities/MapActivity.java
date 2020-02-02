@@ -691,7 +691,7 @@ public class MapActivity extends Activity {
      * @param locationList  to determine the Bounding Box for.
      * @return  a {@link BoundingBox} where all {@link TripLocation} of the List will be shown
      */
-    private static BoundingBox determineBoundingBox(List<TripLocation> locationList){
+    public static BoundingBox determineBoundingBox(List<TripLocation> locationList){
 
         if (locationList == null || locationList.size() <= 0){
             Log.e("CHEAPTRIP", "Cannot Determine BoundingBox for Empty or noninitialized location list.");

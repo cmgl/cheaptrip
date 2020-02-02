@@ -5,7 +5,9 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.example.cheaptrip.activities.CalculationActivity;
+import com.example.cheaptrip.dao.database.VehicleDatabaseClient;
 import com.example.cheaptrip.dao.rest.GasStationClient;
+import com.example.cheaptrip.database.VehicleDatabase;
 import com.example.cheaptrip.handlers.CalculationListener;
 import com.example.cheaptrip.handlers.rest.geo.GeoDirectionMatrixHandler;
 import com.example.cheaptrip.handlers.rest.geo.GeoDirectionsHandler;
@@ -37,7 +39,7 @@ public class RouteService extends AsyncTask<TripLocation,Void,Void> {
     final static double RADIUS_EARTH = 6371e3;    // Radius of Earth in meters
 
     final static double GAS_STATION_SEARCH_RADIUS = 25; // Radius to search for Gas-Stations
-                                                        // 25 max allowed by tankerkoenig
+    // 25 max allowed by tankerkoenig
 
     private TripVehicle tripVehicle;
     List<TripRoute> tripRouteList;
@@ -235,7 +237,7 @@ public class RouteService extends AsyncTask<TripLocation,Void,Void> {
          * (it doesen't matter which one)
          * This is just a representation for the other distances between GasStation and
          * Destinations (because the other stations are within the same radius
-        *=========================================================================================*/
+         *=========================================================================================*/
         TripRoute tripRoutePeek = tripRouteList.get(0);
         List<TripLocation> stopsAmongTheRoute = tripRoutePeek.getStops();
 
@@ -266,7 +268,7 @@ public class RouteService extends AsyncTask<TripLocation,Void,Void> {
             Log.e("CHEAPTRIP","Cannot assign Properties to tripVehicle: tripVehicle is null");
             return null;
         }
-
+/*
         VehiclePropertyHandler vehiclePropertyHandler = new VehiclePropertyHandler(tripVehicle);
 
         Vehicles vehicles = vehiclePropertyHandler.makeRequest();
@@ -281,9 +283,18 @@ public class RouteService extends AsyncTask<TripLocation,Void,Void> {
 
         String strHighwayMPG = vehicles.getVehicleList().get(0).getHighway08();
         double highwayMPG = Double.parseDouble(strHighwayMPG);
+*/
+        VehicleDatabaseClient dbClient = VehicleDatabase.getDatabase(context).vehicleDatabaseClient();
+
+
+        /*Double cityMPG = dbClient.getConsumptionCity(tripVehicle.getBrand(),tripVehicle.getModel(),tripVehicle.getYear());
+        Double highwayMPG = dbClient.getConsumptionHighway(tripVehicle.getBrand(),tripVehicle.getModel(),tripVehicle.getYear());
 
         double cityKML = convertMPGto100KML(cityMPG);
-        double highwayKML = convertMPGto100KML(highwayMPG);
+        double highwayKML = convertMPGto100KML(highwayMPG);*/
+
+        double cityKML    =  dbClient.getConsumptionCity(tripVehicle.getBrand(),tripVehicle.getModel(),tripVehicle.getYear());
+        double highwayKML =  dbClient.getConsumptionHighway(tripVehicle.getBrand(),tripVehicle.getModel(),tripVehicle.getYear());
 
         tripVehicle.setFuelConsumptionHighway(highwayKML);
         tripVehicle.setFuelConsumptionCity(cityKML);
@@ -323,10 +334,10 @@ public class RouteService extends AsyncTask<TripLocation,Void,Void> {
         /*==========================================================================================
          * Generate the Coordinate List for the POST Body of Matrix Request (ORService)
          *========================================================================================*/
-        List<List<Double>> matrixCoordinateList = new ArrayList<>();
+        List<TripLocation> matrixCoordinateList = new ArrayList<>();
 
-        matrixCoordinateList.add(startLocation.getAsDoubleList());
-        matrixCoordinateList.add(endLocation.getAsDoubleList());
+        matrixCoordinateList.add(startLocation);
+        matrixCoordinateList.add(endLocation);
 
         for(TripGasStation station : stationList) {
             if (station == null) {
@@ -341,7 +352,9 @@ public class RouteService extends AsyncTask<TripLocation,Void,Void> {
             stationCoordinates.add(lon);
             stationCoordinates.add(lat);
 
-            matrixCoordinateList.add(stationCoordinates);
+            TripLocation tripLocation = new TripLocation(lat,lon);
+
+            matrixCoordinateList.add(tripLocation);
         }
         /*==========================================================================================
          * Get TripRoutes with Durations and Distances from ORService API
@@ -350,12 +363,12 @@ public class RouteService extends AsyncTask<TripLocation,Void,Void> {
         locationPosition.add(0);
         locationPosition.add(1);
 
-        GeoDirectionMatrixHandler matrixHandler = new GeoDirectionMatrixHandler(matrixCoordinateList, locationPosition, null);
+        GeoDirectionMatrixHandler matrixHandler = new GeoDirectionMatrixHandler(matrixCoordinateList, locationPosition, null,false);
         List<TripRoute> tripRouteList = matrixHandler.makeSyncRequest();
 
 
         for(int i = 0 ;i < 10; i++){
-            matrixHandler = new GeoDirectionMatrixHandler(matrixCoordinateList, locationPosition, null);
+            matrixHandler = new GeoDirectionMatrixHandler(matrixCoordinateList, locationPosition, null,false);
             tripRouteList = matrixHandler.makeSyncRequest();
         }
         /*==========================================================================================
@@ -372,7 +385,6 @@ public class RouteService extends AsyncTask<TripLocation,Void,Void> {
             if(!tripGasStation.isOpen()){
                 continue;
             }
-
 
             TripRoute tripRoute = (TripRoute) tripListIterator.next();
 
@@ -401,6 +413,7 @@ public class RouteService extends AsyncTask<TripLocation,Void,Void> {
              * Get GasStation Price
              *=========================================================*/
             Double pricePerLiter = null;
+
             if(fuelType == GasStationClient.FuelType.E5) {
                 pricePerLiter = tripGasStation.getPriceE5();
             }
@@ -440,7 +453,7 @@ public class RouteService extends AsyncTask<TripLocation,Void,Void> {
         double lat = calcLocation.getLatitdue();
         double lon = calcLocation.getLongitude();
 
-        GasStationForRadiusHandler gasStationHandler = new GasStationForRadiusHandler(lat,lon, tripVehicle.getFueltype());
+        GasStationForRadiusHandler gasStationHandler = new GasStationForRadiusHandler(context, lat,lon, GAS_STATION_SEARCH_RADIUS,tripVehicle.getFueltype());
 
         List<TripGasStation> tripGasStations = gasStationHandler.makeSyncRequest();
 

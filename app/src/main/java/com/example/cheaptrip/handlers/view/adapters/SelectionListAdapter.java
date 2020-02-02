@@ -14,7 +14,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import com.example.cheaptrip.R;
-import com.example.cheaptrip.models.nhtsa.VehicleBrand;
 
 import java.util.ArrayList;
 
@@ -69,7 +68,7 @@ public class SelectionListAdapter extends BaseAdapter implements Filterable {
         View row = convertView;
         if (row == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            row = inflater.inflate(R.layout.selection_list_row, parent, false);
+            row = inflater.inflate(R.layout.list_row_vehicle_selection, parent, false);
         }
 
         TextView textView = (TextView) row.findViewById(R.id.listText);

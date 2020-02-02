@@ -18,71 +18,125 @@
             android:focusable="true">
         </org.osmdroid.views.MapView>-->
 
-        <LinearLayout
-            android:orientation="vertical"
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@drawable/shape_info_window"
+        android:elevation="20dp">
+
+
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab_layout_calc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tabBackground="@color/colorList2nd"
+            app:tabIndicator="@color/colorAccent"
+            app:tabMode="fixed"
+            app:tabTextColor="@color/colorAccent"
+            />
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewpager_calc"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@color/colorPrimaryDark"
-            android:elevation="20dp">
+            android:background="@android:color/white" />
 
 
+    </LinearLayout>
 
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tab_layout_calc"
-                android:layout_width="match_parent"
+    <RelativeLayout
+        android:id="@+id/rel_layout_calc_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:id="@+id/linear_layout_list_filter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@drawable/shape_layout_round_corners">
+            <TextView
+                android:text="Sort Criteria"
+                android:textAlignment="center"
+                android:layout_gravity="center"
+                android:textColor="@android:color/white"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:tabBackground="@color/colorList2nd"
-                app:tabIndicator="@color/colorAccent"
-                app:tabMode="fixed"
-                app:tabTextColor="@color/colorAccent"
+                android:layout_marginRight="50dp"/>
+
+            <ImageButton
+                android:id="@+id/btn_filter_costs"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:scaleType="fitXY"
+                android:background="@android:color/transparent"
+                android:onClick="onSortButtonClicked"
+                android:src="@drawable/sort_costs_green"
+                android:text="Costs"
+                android:layout_marginRight="10dp"
+                android:textColor="@android:color/white"
                 />
 
-            <androidx.viewpager.widget.ViewPager
-                android:id="@+id/viewpager_calc"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@android:color/white" />
+            <ImageButton
+                android:id="@+id/btn_filter_duration"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:scaleType="fitXY"
+                android:background="@android:color/transparent"
+                android:onClick="onSortButtonClicked"
+                android:src="@drawable/sort_time"
+                android:text="Duration"
+                android:layout_marginRight="10dp"
+                android:textColor="@android:color/white" />
 
+            <ImageButton
+                android:id="@+id/btn_filter_distance"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:scaleType="fitXY"
+                android:background="@android:color/transparent"
+                android:onClick="onSortButtonClicked"
+                android:padding="0dp"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/sort_distance"
+                android:text="Distance"
+                android:textColor="@android:color/white" />
 
         </LinearLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/shape_main_background"
-            >
         <ListView
+            android:layout_below="@id/linear_layout_list_filter"
             android:id="@+id/list_routes"
-            android:layout_height="match_parent"
             android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/shape_main_background"
-            android:listSelector="@android:color/darker_gray"
-            />
+            android:listSelector="@android:color/darker_gray" />
 
 
         <com.example.cheaptrip.views.Gauge
-            android:id="@+id/progress_brand"
+            android:id="@+id/progress_gauge"
+            android:transitionName="gauge_to_gauge"
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:layout_gravity="center"
+            android:layout_centerInParent="true"
             android:padding="64dp"
-            android:layout_marginTop="100dp"
+            android:visibility="visible"
             app:arcColor="@android:color/white"
             app:arcWidth="2dp"
             app:max="100"
             app:min="-3"
+            app:needle_color="@android:color/holo_red_dark"
             app:progressColor="@color/color_progress"
             app:progressWidth="12dp"
             app:step="1"
             app:textColor="@color/color_text"
             app:textSize="72sp"
-            app:text_enabled="false"
-            app:needle_color="@android:color/holo_red_dark"
-            android:visibility="visible"
-            />
+            app:text_enabled="false" />
 
         <!--<ProgressBar
             android:id="@+id/progress_brand"
@@ -93,7 +147,16 @@
             android:visibility="visible"
             android:elevation="10dp"/>-->
 
-        </RelativeLayout>
-
+    </RelativeLayout>
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:layout_gravity="bottom"
+        android:layout_alignParentBottom="true"
+        app:menu="@menu/bottom_navigation_menu"
+        app:itemIconTint="@android:color/darker_gray"
+        app:itemTextColor="@android:color/darker_gray"
+        app:labelVisibilityMode="labeled"
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>

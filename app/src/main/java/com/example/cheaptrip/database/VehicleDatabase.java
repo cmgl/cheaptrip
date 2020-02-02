@@ -16,7 +16,7 @@ import com.example.cheaptrip.models.fueleconomy.VehicleDataSet;
  *
  * (see https://developer.android.com/topic/libraries/architecture/room)
  */
-@Database(entities = {VehicleDataSet.class}, version = 1,exportSchema = false)
+@Database(entities = {VehicleDataSet.class}, version = 2,exportSchema = false)
 public abstract class VehicleDatabase extends RoomDatabase {
 
     public abstract VehicleDatabaseClient vehicleDatabaseClient();
@@ -29,6 +29,7 @@ public abstract class VehicleDatabase extends RoomDatabase {
                     INSTANCE =
                             Room.databaseBuilder(context.getApplicationContext(),VehicleDatabase.class, "VEHICLES")
                                     .allowMainThreadQueries()
+                                    .fallbackToDestructiveMigration()
                                     .build();
                 }
             }

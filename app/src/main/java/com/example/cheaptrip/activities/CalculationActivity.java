@@ -2,14 +2,16 @@ package com.example.cheaptrip.activities;
 
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.viewpager.widget.ViewPager;
@@ -19,6 +21,7 @@ import com.example.cheaptrip.app.CheapTripApp;
 import com.example.cheaptrip.handlers.rest.RestListener;
 import com.example.cheaptrip.handlers.rest.geo.GeoDirectionsHandler;
 import com.example.cheaptrip.views.Gauge;
+import com.example.cheaptrip.views.Navigation;
 import com.example.cheaptrip.views.fragments.CalcGasStationFragment;
 import com.example.cheaptrip.views.fragments.CalcMapFragment;
 import com.example.cheaptrip.views.fragments.CalcRouteFragment;
@@ -35,10 +38,9 @@ import com.example.cheaptrip.models.TripVehicle;
 
 import com.example.cheaptrip.services.RouteService;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
 
-
-import org.osmdroid.api.IMapController;
 
 import java.util.List;
 
@@ -49,7 +51,7 @@ public class CalculationActivity extends AppCompatActivity {
     private TripRouteListAdapter tripRouteListAdapter;      // Adapter for the List of TripRoutes
 
     private Gauge progressBar;                        // Progress bar to be shown on load of
-                                                            // the list entries
+    // the list entries
 
     TripLocation startLocation;                             // Starting Location
     TripLocation endLocation;                               // End Location (Destination)
@@ -63,6 +65,7 @@ public class CalculationActivity extends AppCompatActivity {
     private ViewPager mViewPager;                           // The View pager for the fragments
 
     private volatile boolean mIsListLoaded = false;         // will be set as soon the TripRoute List is loaded
+    private BottomNavigationView bottomNavigation;
 
     /**
      * This function will be called on Activity creation
@@ -79,15 +82,21 @@ public class CalculationActivity extends AppCompatActivity {
          * Init the Views
          *============================================================*/
         setContentView(R.layout.activity_calculation);
+        progressBar = findViewById(R.id.progress_gauge);
+        lvRoutes = findViewById(R.id.list_routes);
+        mViewPager = findViewById(R.id.viewpager_calc);
 
+        bottomNavigation = findViewById(R.id.bottomNavigationView);
+        bottomNavigation.setSelectedItemId(R.id.bottom_nav_stations);
+        Navigation.setBottomNavigation(this,bottomNavigation);
+
+        /*============================================================
+         * Get Data from Intent
+         *============================================================*/
         startLocation = (TripLocation) getIntent().getSerializableExtra("start");
         endLocation = (TripLocation) getIntent().getSerializableExtra("end");
 
         tripVehicle = (TripVehicle) getIntent().getSerializableExtra("tripVehicle");
-        progressBar = findViewById(R.id.progress_brand);
-        lvRoutes = findViewById(R.id.list_routes);
-
-        mViewPager = findViewById(R.id.viewpager_calc);
         /*============================================================
          * Start Actions
          *============================================================*/
@@ -257,6 +266,9 @@ public class CalculationActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * Animates the Tank Gauge until the load is finished (mIsListLoaded = true)
+     */
     private void animateTankIndicator(){
         Thread thread = new Thread(new Runnable() {
             @Override
@@ -295,7 +307,7 @@ public class CalculationActivity extends AppCompatActivity {
      * @param tripRoute     Selected TripRoute from the list lvRoutes.
      */
     private void fillFragments(TripRoute tripRoute){
-        mMapFragment.updateMap(tripRoute);
+        mMapFragment.updateMap(tripRoute,true);
 
         for(TripLocation tripLocation : tripRoute.getStops()){
             if(tripLocation instanceof TripGasStation){
@@ -306,4 +318,32 @@ public class CalculationActivity extends AppCompatActivity {
         mRouteFragment.updateList(tripRoute);
     }
 
+    /**
+     * Callback function for the filter buttons.
+     * Sorts the list items  by duration, costs and distance
+     * depending on the button that was clicked.
+     *
+     * @param view  Filter button that was clicked by user
+     */
+    public void onSortButtonClicked(View view) {
+        if(tripRouteListAdapter == null){
+            Log.e("CHEAPTRIP","Cannot sort list: gasStationListAdapter is null");                return;
+        }
+
+        switch (view.getId()){
+            case R.id.btn_filter_costs:
+                tripRouteListAdapter.sortForCosts();
+                break;
+
+            case R.id.btn_filter_distance:
+                tripRouteListAdapter.sortForDistance();
+                break;
+
+            case R.id.btn_filter_duration:
+                tripRouteListAdapter.sortForDuration();
+                break;
+
+            default: break;
+        }
+    }
 }

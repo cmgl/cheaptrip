@@ -12,9 +12,15 @@ import java.util.List;
 
 @Dao
 public interface GasStationDatabaseClient {
+
+    @Query("SELECT * FROM STATIONS WHERE ID = :uuid LIMIT 1")
+    Station getForID(String uuid);
     /*=========================================================================================
      * Other Queries
      *=========================================================================================*/
+    @Query("SELECT * FROM STATIONS")
+    List<Station> getAll();
+
     @Insert
     void insertAll(List<Station> stations);
 

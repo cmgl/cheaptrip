@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
@@ -10,6 +11,7 @@
 
     <com.example.cheaptrip.views.Gauge
         android:id="@+id/tank_indicator"
+        android:transitionName="gauge_to_gauge"
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:layout_gravity="center"
@@ -103,12 +105,11 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/btn_car_year"
-            android:prompt="@string/select_fuel_type"
             android:drawableEnd="@android:drawable/arrow_down_float"
             android:drawableRight="@android:drawable/arrow_down_float"
             android:entries="@array/fuel_type_array"
             android:enabled="true"
-            tools:listitem="@layout/fueltype_item"
+            tools:listitem="@layout/spinner_item_fueltype"
             />
 
     </RelativeLayout>
@@ -153,63 +154,61 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-        <EditText
-            android:id="@+id/edit_start"
-            android:layout_width="313dp"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="-50dp"
-            android:ems="10"
+                <EditText
+                    android:id="@+id/edit_start"
+                    android:layout_width="313dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="-50dp"
+                    android:ems="10"
 
-            android:focusable="false"
-            android:hint="@string/location_start"
+                    android:focusable="false"
+                    android:hint="@string/location_start"
 
-            android:inputType="textPersonName"
-            android:onClick="viewClickHandler"
-            android:selectAllOnFocus="false"
-            android:singleLine="false"
-            android:textColor="#FFFFFF"
-            android:textColorHint="@android:color/primary_text_dark_nodisable" />
+                    android:onClick="viewClickHandler"
+                    android:selectAllOnFocus="false"
+                    android:singleLine="false"
+                    android:textColor="#FFFFFF"
+                    android:textColorHint="@android:color/primary_text_dark_nodisable" />
 
-        <EditText
-            android:id="@+id/edit_destination"
-            android:layout_width="312dp"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/edit_start"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="-49dp"
-            android:ems="10"
-            android:focusable="false"
-            android:hint="@string/location_dest"
-            android:inputType="textPersonName"
-            android:textColor="#FFFFFF"
-            android:textColorHint="@android:color/primary_text_dark_nodisable"
-            android:onClick="viewClickHandler" />
+                <EditText
+                    android:id="@+id/edit_destination"
+                    android:layout_width="312dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/edit_start"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="-49dp"
+                    android:ems="10"
+                    android:focusable="false"
+                    android:hint="@string/location_dest"
+                    android:textColor="#FFFFFF"
+                    android:textColorHint="@android:color/primary_text_dark_nodisable"
+                    android:onClick="viewClickHandler" />
 
-        <Button
-            android:id="@+id/btn_start_location"
-            android:layout_width="34dp"
-            android:layout_height="31dp"
-            android:layout_alignBottom="@id/edit_start"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="10dp"
-            android:layout_toRightOf="@id/edit_start"
-            android:background="@android:drawable/ic_menu_mylocation"
-            android:onClick="viewClickHandler"
-            android:layout_toEndOf="@id/edit_start" />
+                <Button
+                    android:id="@+id/btn_start_location"
+                    android:layout_width="34dp"
+                    android:layout_height="31dp"
+                    android:layout_alignBottom="@id/edit_start"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="10dp"
+                    android:layout_toRightOf="@id/edit_start"
+                    android:background="@android:drawable/ic_menu_mylocation"
+                    android:onClick="viewClickHandler"
+                    android:layout_toEndOf="@id/edit_start" />
 
-        <Button
-            android:id="@+id/btn_end_location"
-            android:layout_width="34dp"
-            android:layout_height="31dp"
-            android:layout_alignBottom="@id/edit_destination"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="10dp"
-            android:layout_toRightOf="@id/edit_destination"
-            android:background="@android:drawable/ic_menu_mylocation"
-            android:onClick="viewClickHandler"
-            android:layout_toEndOf="@id/edit_destination" />
+                <Button
+                    android:id="@+id/btn_end_location"
+                    android:layout_width="34dp"
+                    android:layout_height="31dp"
+                    android:layout_alignBottom="@id/edit_destination"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="10dp"
+                    android:layout_toRightOf="@id/edit_destination"
+                    android:background="@android:drawable/ic_menu_mylocation"
+                    android:onClick="viewClickHandler"
+                    android:layout_toEndOf="@id/edit_destination" />
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
     </RelativeLayout>
@@ -230,18 +229,15 @@
         android:onClick="viewClickHandler"
         android:text="@string/btn_find" />
 
-  <!--  <androidx.viewpager.widget.ViewPager
-        android:id="@+id/view_pager"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
-
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigation_view"
+        android:layout_gravity="bottom"
+        android:layout_alignParentBottom="true"
+        app:menu="@menu/bottom_navigation_menu"
+        app:itemIconTint="@android:color/darker_gray"
+        app:itemTextColor="@android:color/darker_gray"
+        app:labelVisibilityMode="labeled"
+        android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:menu="@menu/menu_bottom_navigation"
-        android:layout_alignParentBottom="true"/>-->
-
+        android:layout_height="wrap_content"/>
 
 </RelativeLayout>

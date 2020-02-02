@@ -69,7 +69,7 @@ public class RouteSegmentListAdapter extends BaseExpandableListAdapter {
          *=============================================*/
         if (convertView == null) {
             LayoutInflater layoutInflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = layoutInflater.inflate(R.layout.way_description, null);
+            convertView = layoutInflater.inflate(R.layout.list_row_way_description, null);
         }
 
         /*=============================================
@@ -150,7 +150,7 @@ public class RouteSegmentListAdapter extends BaseExpandableListAdapter {
 
         if (convertView == null) {
             LayoutInflater layoutInflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = layoutInflater.inflate(R.layout.route_segmet, null);
+            convertView = layoutInflater.inflate(R.layout.list_row_route_segmet, null);
         }
         TextView listTitleTextView = (TextView) convertView.findViewById(R.id.listTitle);
         listTitleTextView.setTypeface(null, Typeface.BOLD);

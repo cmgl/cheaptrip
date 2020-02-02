@@ -13,6 +13,7 @@ import com.google.gson.stream.JsonReader;
 
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
@@ -106,36 +107,35 @@ public class VehicleDataSetHandler extends RestHandler<List<VehicleDataSet>,Stri
                     for(String model : modelSet){
                         Set<String> fuelTypeSet = getFuelTypes(treeMap,year,brand,model);
 
-                        Double regular = null;
-                        Double premium = null;
-                        Double diesel = null;
+                        Double city = null;
+                        Double highway = null;
+                        Double combined = null;
+
+                        HashMap<String,HashMap<String, Double>> fuelMap = new HashMap<>();
 
                         for(String fuelType : fuelTypeSet){
-                            double consumption = getConsumption(treeMap,year,brand,model,fuelType);
+                            Set<String> consumptionSet = getConsumptionType(treeMap,year,brand,model,fuelType);
 
+                            for(String consumptionType : consumptionSet){
+                                Double consumption = getConsumption(treeMap,year,brand,model,fuelType,consumptionType);
 
-                            if (model.compareTo("325i")== 0 ){
-                                int a = 0;
-                                a++;
-                            }
-                            if(fuelType.compareTo("Diesel") == 0){
-                                diesel = consumption;
-                            }
+                                if(consumptionType.compareTo("city") == 0){
+                                    city = consumption;
+                                }
 
-                            if(fuelType.compareTo("Regular") == 0){
-                                regular = consumption;
-                            }
+                                if (consumptionType.compareTo("highway") == 0){
+                                    highway = consumption;
+                                }
 
-                            if (fuelType.compareTo("Premium") == 0){
-                                premium = consumption;
+                                if(consumptionType.compareTo("combined") == 0){
+                                    combined = consumption;
+                                }
                             }
+                            VehicleDataSet vehicleDataSet = new VehicleDataSet(year,brand,model, fuelType, city,highway,combined);
+                            vehicleDataSetList.add(vehicleDataSet);
                         }
-
-                        VehicleDataSet vehicleDataSet = new VehicleDataSet(year,brand,model,regular,premium,diesel);
-                        vehicleDataSetList.add(vehicleDataSet);
                     }
-
-            }
+                }
 
             }
         }catch(Exception e){
@@ -173,11 +173,19 @@ public class VehicleDataSetHandler extends RestHandler<List<VehicleDataSet>,Stri
         return result3.keySet();
     }
 
-    private static Double getConsumption(LinkedTreeMap data, String year, String brand, String model, String fuelType){
+    private static Set<String> getConsumptionType(LinkedTreeMap data, String year, String brand, String model, String fuelType){
         LinkedTreeMap result = (LinkedTreeMap) data.get(year);
         LinkedTreeMap result2 = (LinkedTreeMap) result.get(brand);
         LinkedTreeMap result3 = (LinkedTreeMap) result2.get(model);
-        Double result4 = (Double) result3.get(fuelType);
-        return result4;
+        LinkedTreeMap result4 = (LinkedTreeMap) result3.get(fuelType);
+        return result4.keySet();
+    }
+    private static Double getConsumption(LinkedTreeMap data, String year, String brand, String model, String fuelType, String consumptionType){
+        LinkedTreeMap result = (LinkedTreeMap) data.get(year);
+        LinkedTreeMap result2 = (LinkedTreeMap) result.get(brand);
+        LinkedTreeMap result3 = (LinkedTreeMap) result2.get(model);
+        LinkedTreeMap result4 = (LinkedTreeMap) result3.get(fuelType);
+        Double consumption = (Double) result4.get(consumptionType);
+        return consumption;
     }
 }

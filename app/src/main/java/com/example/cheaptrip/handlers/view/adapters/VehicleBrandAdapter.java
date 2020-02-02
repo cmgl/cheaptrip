@@ -68,7 +68,7 @@ public class VehicleBrandAdapter extends BaseAdapter implements Filterable {
         View row = convertView;
         if (row == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            row = inflater.inflate(R.layout.selection_list_row, parent, false);
+            row = inflater.inflate(R.layout.list_row_vehicle_selection, parent, false);
         }
 
         TextView textView = (TextView) row.findViewById(R.id.listText);

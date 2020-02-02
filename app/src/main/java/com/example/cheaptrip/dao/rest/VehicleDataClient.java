@@ -9,6 +9,6 @@ import retrofit2.http.GET;
 public interface VehicleDataClient {
 
     @Raw
-    @GET("vehicles.json#")
+    @GET("vehicles_new.json#")
     Call<String> getVehicleData();
 }

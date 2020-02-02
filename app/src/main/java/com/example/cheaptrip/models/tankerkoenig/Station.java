@@ -13,66 +13,88 @@ import com.google.gson.annotations.SerializedName;
 public class Station {
     @NonNull
     @PrimaryKey()
-    @SerializedName(value="id", alternate={"station_uuid"})
+    @SerializedName(value="id", alternate={"station_uuid","uuid"})
     @Expose
-    @ColumnInfo(name="ID")
+	@ColumnInfo(name="ID")
     private String id;
 
     @SerializedName("name")
     @Expose
+	@ColumnInfo(name="name")
     private String name;
 
     @SerializedName("brand")
     @Expose
+	@ColumnInfo(name="brand")
     private String brand;
 
     @SerializedName("street")
     @Expose
+	@ColumnInfo(name="street")
     private String street;
 
     @SerializedName("place")
     @Expose
+	@ColumnInfo(name="place")
     private String place;
 
     @SerializedName("lat")
     @Expose
+	@ColumnInfo(name="lat")
     private double lat;
 
     @SerializedName("lng")
     @Expose
+	@ColumnInfo(name="lng")
     private double lng;
 
     @SerializedName("dist")
     @Expose
+	@ColumnInfo(name="dist")
     private double dist;
 
     @SerializedName("diesel")
     @Expose
+	@ColumnInfo(name="diesel")
     private double diesel;
 
     @SerializedName("e5")
     @Expose
+	@ColumnInfo(name="e5")
     private double e5;
 
     @SerializedName("e10")
     @Expose
+	@ColumnInfo(name="e10")
     private double e10;
 
     @SerializedName("isOpen")
     @Expose
+	@ColumnInfo(name="isOpen")
     private Boolean isOpen;
 
     @SerializedName("houseNumber")
     @Expose
+	@ColumnInfo(name="houseNumber")
     private String houseNumber;
 
     @SerializedName("postCode")
     @Expose
+	@ColumnInfo(name="postCode")
     private Integer postCode;
 
     @SerializedName("date")
     @ColumnInfo(name="DATE")
     private String date;
+
+    @SerializedName("first_active")
+    @Expose
+	@ColumnInfo(name="first_active")
+    private String firstActive;
+
+    @SerializedName("openingtimes_json")
+    @ColumnInfo(name="OPENING_TIMES")
+    private String openingtimes_json;
 
     public String getId() {
         return id;
@@ -192,5 +214,21 @@ public class Station {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getOpeningtimes_json() {
+        return openingtimes_json;
+    }
+
+    public void setOpeningtimes_json(String openingtimes_json) {
+        this.openingtimes_json = openingtimes_json;
+    }
+
+    public String getFirstActive() {
+        return firstActive;
+    }
+
+    public void setFirstActive(String firstActive) {
+        this.firstActive = firstActive;
     }
 }

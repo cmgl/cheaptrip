@@ -19,28 +19,34 @@ public class VehicleDataSet  implements Comparable<VehicleDataSet>{
     @ColumnInfo(name = "MODEL")
     private String vehicleModel;
 
-    @ColumnInfo(name = "REGULAR")
-    private Double consumption_regular;
+    @ColumnInfo(name = "FUELTYPE")
+    private String fuelType;
 
-    @ColumnInfo(name = "PREMIUM")
-    private Double consumption_premium;
+    @ColumnInfo(name = "CITY")
+    private Double consumptionCity;
 
-    @ColumnInfo(name = "DIESEL")
-    private Double consumption_diesel;
+    @ColumnInfo(name = "HIGHWAY")
+    private Double consumptionHighway;
+
+
+    @ColumnInfo(name = "COMBINED")
+    private Double consumptionCombined;
 
     public VehicleDataSet(String constructionYear,
                           String vehicleBrand,
                           String vehicleModel,
-                          Double consumption_regular,
-                          Double consumption_premium,
-                          Double consumption_diesel)
+                          String fuelType,
+                          Double consumptionCity,
+                          Double consumptionHighway,
+                          Double consumptionCombined)
     {
         this.constructionYear = constructionYear;
         this.vehicleBrand = vehicleBrand;
         this.vehicleModel = vehicleModel;
-        this.consumption_regular = consumption_regular;
-        this.consumption_premium = consumption_premium;
-        this.consumption_diesel = consumption_diesel;
+        this.fuelType = fuelType;
+        this.consumptionCity = consumptionCity;
+        this.consumptionHighway = consumptionHighway;
+        this.consumptionCombined = consumptionCombined;
     }
 
     public String getConstructionYear() {
@@ -67,17 +73,30 @@ public class VehicleDataSet  implements Comparable<VehicleDataSet>{
         this.vehicleModel = vehicleModel;
     }
 
-    public Double getConsumption_regular() {
-        return consumption_regular;
+    public Double getConsumptionCity() {
+        return consumptionCity;
     }
 
-    public Double getConsumption_premium() {
-        return consumption_premium;
+    public Double getConsumptionHighway() {
+        return consumptionHighway;
     }
 
-    public Double getConsumption_diesel() {
-        return consumption_diesel;
+    public Double getConsumptionCombined() {
+        return consumptionCombined;
     }
+
+    public void setConsumptionCity(Double consumptionCity) {
+        this.consumptionCity = consumptionCity;
+    }
+
+    public void setConsumptionHighway(Double consumptionHighway) {
+        this.consumptionHighway = consumptionHighway;
+    }
+
+    public void setConsumptionCombined(Double consumptionCombined) {
+        this.consumptionCombined = consumptionCombined;
+    }
+
 
     public long getVehicleID() {
         return vehicleID;
@@ -85,6 +104,14 @@ public class VehicleDataSet  implements Comparable<VehicleDataSet>{
 
     public void setVehicleID(long vehicleID) {
         this.vehicleID = vehicleID;
+    }
+
+    public String getFuelType() {
+        return fuelType;
+    }
+
+    public void setFuelType(String fuelType) {
+        this.fuelType = fuelType;
     }
 
 
@@ -96,11 +123,11 @@ public class VehicleDataSet  implements Comparable<VehicleDataSet>{
 
         String thisDataString =
                 getConstructionYear() + getVehicleBrand() + getVehicleModel() +
-                        getConsumption_diesel() + getConsumption_premium() + getConsumption_regular();
+                        getConsumptionCombined() + getConsumptionHighway() + getConsumptionCity();
 
         String dataString2 =
                 vehicleDataSet.getConstructionYear() + vehicleDataSet.getVehicleBrand() + vehicleDataSet.getVehicleModel() +
-                        vehicleDataSet.getConsumption_diesel() + vehicleDataSet.getConsumption_premium() + vehicleDataSet.getConsumption_regular();
+                        vehicleDataSet.getConsumptionCombined() + vehicleDataSet.getConsumptionHighway() + vehicleDataSet.getConsumptionCity();
 
 
         return thisDataString.compareTo(dataString2);

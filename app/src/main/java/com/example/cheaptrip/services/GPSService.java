@@ -11,6 +11,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.provider.Settings;
 import android.widget.Toast;
 
@@ -47,6 +48,26 @@ public class GPSService implements LocationListener{
 
         getLocation();
     }
+
+
+    public static void requestPermission(Context context){
+
+        LocationManager locationManager = (LocationManager) context.getSystemService(LOCATION_SERVICE);
+        boolean checkGPS = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+
+
+        boolean hasFINE_LOCATION_ACCESS = ActivityCompat.checkSelfPermission(context, ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+        boolean hasCOARSE_LOCATION_ACCESS = ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+
+
+        if (checkGPS) {
+            if (!hasFINE_LOCATION_ACCESS || !hasCOARSE_LOCATION_ACCESS) {
+                ActivityCompat.requestPermissions((Activity) context, new String[]{ACCESS_FINE_LOCATION}, MY_PERMISSIONS_REQUEST_LOCATION);
+
+            }
+        }
+    }
+
 
     private Location getLocation() {
 

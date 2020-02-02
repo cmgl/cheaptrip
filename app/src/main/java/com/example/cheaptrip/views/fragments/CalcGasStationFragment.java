@@ -12,6 +12,10 @@ import androidx.fragment.app.Fragment;
 
 import com.example.cheaptrip.R;
 import com.example.cheaptrip.models.TripGasStation;
+import com.example.cheaptrip.models.tankerkoenig.OpeningTime;
+import com.example.cheaptrip.models.tankerkoenig.Period;
+
+import java.util.List;
 
 
 public class CalcGasStationFragment extends Fragment {
@@ -21,6 +25,7 @@ public class CalcGasStationFragment extends Fragment {
     private TextView mTextViewPrices;               // TextView displaying the prices
     private TextView mTextViewLocation;          // TextView displaying the location info
     private TextView mTextViewBrand;
+    private TextView mTextViewOpening;              // TextView for Opening Times
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
@@ -31,6 +36,7 @@ public class CalcGasStationFragment extends Fragment {
         mTextViewPrices = rootView.findViewById(R.id.tv_gasstation_prices);
         mTextViewLocation= rootView.findViewById(R.id.tv_gasstation_location);
         mTextViewBrand = rootView.findViewById(R.id.tv_gasstation_brand);
+        mTextViewOpening = rootView.findViewById(R.id.tv_gasstation_opening);
 
         if(mTripGasStation != null){
             String textToView = generateText(mTripGasStation);
@@ -114,6 +120,25 @@ public class CalcGasStationFragment extends Fragment {
 
         if(mTextViewLocation != null){
             mTextViewLocation.setText(address);
+        }
+
+        List<OpeningTime> openingTimes = tripGasStation.getOpeningTimes().getOpeningTimes();
+
+        String strOpeningTimes = "";
+
+        if(openingTimes == null ||openingTimes.isEmpty()){
+            strOpeningTimes = "n/a";
+        }else{
+
+            for(Period period :openingTimes.get(0).getPeriods()){
+                strOpeningTimes += period.getStartp() + " - " + period.getEndp() + "\n";
+            }
+        }
+
+
+
+        if(mTextViewOpening != null){
+            mTextViewOpening.setText(strOpeningTimes);
         }
 
     }

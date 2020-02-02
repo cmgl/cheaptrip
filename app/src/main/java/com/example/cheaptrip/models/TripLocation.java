@@ -6,11 +6,8 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import com.example.cheaptrip.models.photon.Geometry;
 import com.example.cheaptrip.models.photon.Location;
 import com.example.cheaptrip.models.photon.Properties;
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -96,8 +93,8 @@ public class TripLocation implements Serializable {
         setStreet(properties.getStreet());
         setHousenumber(properties.getHousenumber());
         setLocationName(properties.getName());
-        
-        
+
+
 
     }
 
@@ -307,7 +304,7 @@ public class TripLocation implements Serializable {
         return coordinateList;
     }
 
-    
+
     public String getInfoWindowText(){
         String labelText = "";
         if (postcode != null && postcode.length() > 0){
@@ -340,9 +337,9 @@ public class TripLocation implements Serializable {
 
         return labelText;
     }
-    
-    
-    
+
+
+
     private void assertInvariants(){
         assert (longitude >= 0);
         assert (longitude >= 0);

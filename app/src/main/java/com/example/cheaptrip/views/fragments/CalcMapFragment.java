@@ -15,6 +15,7 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.cheaptrip.R;
+import com.example.cheaptrip.activities.MapActivity;
 import com.example.cheaptrip.handlers.rest.RestListener;
 import com.example.cheaptrip.handlers.rest.geo.GeoDirectionsHandler;
 import com.example.cheaptrip.handlers.view.MyKmlStyler;
@@ -92,12 +93,15 @@ public class CalcMapFragment extends Fragment {
          * Init the Map and get
          *=================================================================*/
         initMap();
-        getBaseRoute(startLocation,endLocation);
         /*================================================================
          * Draw the current Selected Route
          *=================================================================*/
-        if(mTripRoute != null){
-            updateMap(mTripRoute);
+        if(startLocation != null || endLocation != null) {
+            getBaseRoute(startLocation, endLocation);
+
+            if (mTripRoute != null) {
+                updateMap(mTripRoute, true);
+            }
         }
     }
 
@@ -125,6 +129,10 @@ public class CalcMapFragment extends Fragment {
         mMapView.setMultiTouchControls(true);
 
         GPSService gpsService = new GPSService(getActivity().getApplicationContext());
+
+        if(startLocation == null || endLocation == null){
+            return;
+        }
 
         if (gpsService.canGetLocation()) {
 
@@ -225,7 +233,7 @@ public class CalcMapFragment extends Fragment {
         }
     }
 
-    private static void setDirectionBbox(String geoJSON){
+    public void setDirectionBbox(String geoJSON){
         if(geoJSON == null || geoJSON.length() < 1){
             Log.e("CHEAPTRIP", "Cannot set BoundingBox from Empty GeoJSON String");
             return;
@@ -287,29 +295,44 @@ public class CalcMapFragment extends Fragment {
         }
     }
 
-    private void updateCurrentRoute(String geoJSON) {
+    private void updateCurrentRoute(String geoJSON,boolean updateBbox) {
         drawRoute(geoJSON, Color.GREEN);
 
         if(startEndRouteJSON != null){
             drawRoute(startEndRouteJSON, Color.BLACK);
         }
 
-        setDirectionBbox(geoJSON);
+        if(updateBbox) {
+            setDirectionBbox(geoJSON);
+        }
     }
 
-    private void updateMarkers(List<TripLocation> tripLocationList) {
+    private void updateMarkers(List<TripLocation> tripLocationList,boolean updateBbox) {
         for(TripLocation tripLocation : tripLocationList){
             drawMarker(tripLocation);
         }
 
+        if(updateBbox) {
+            BoundingBox boundingBox = MapActivity.determineBoundingBox(tripLocationList);
+
+            mMapView.zoomToBoundingBox(boundingBox, true,150);
+            mMapView.invalidate();
+        }
     }
 
-    public void updateMap(TripRoute tripRoute){
+    public void updateMap(TripRoute tripRoute, boolean updateBbox){
         mTripRoute = tripRoute;
         String geoJSON = tripRoute.getGeoJSON();
 
-        updateCurrentRoute(geoJSON);
-        updateMarkers(tripRoute.getStops());
+        updateCurrentRoute(geoJSON,updateBbox);
+        updateMarkers(tripRoute.getStops(),!updateBbox);
+
 
     }
+
+    public void drawMarkersInRadius(List<TripLocation> tripLocationList, boolean updateBox){
+        updateMarkers(tripLocationList,updateBox);
+    }
+
+
 }

@@ -13,7 +13,6 @@ import androidx.annotation.NonNull;
 
 import com.example.cheaptrip.R;
 import com.example.cheaptrip.models.TripRoute;
-import com.example.cheaptrip.models.nhtsa.VehicleBrand;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -30,8 +29,12 @@ public class TripRouteListAdapter extends BaseAdapter {
     }
 
     public TripRouteListAdapter( Context context, List<TripRoute> tripRouteList) {
-        this.tripRouteList = sortForCosts(tripRouteList);
         this.context = context;
+        this.tripRouteList = tripRouteList;
+
+        if(tripRouteList != null){
+            sortForCosts();
+        }
     }
 
     @Override
@@ -63,7 +66,7 @@ public class TripRouteListAdapter extends BaseAdapter {
         View row = convertView;
         if (row == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            row = inflater.inflate(R.layout.selection_list_row, parent, false);
+            row = inflater.inflate(R.layout.list_row_vehicle_selection, parent, false);
         }
 
         TextView textView = (TextView) row.findViewById(R.id.listText);
@@ -91,12 +94,20 @@ public class TripRouteListAdapter extends BaseAdapter {
     }
 
     public void setTripRouteList(List<TripRoute> tripRouteList) {
-        this.tripRouteList = sortForCosts(tripRouteList);
+        this.tripRouteList = tripRouteList;
+        if(tripRouteList != null){
+            sortForCosts();
+        }
     }
 
-    public List<TripRoute> sortForCosts(List<TripRoute> routeList){
+    /**
+     * Sorts the list in place by costs
+     *
+     * @return
+     */
+    public void sortForCosts(){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            routeList.sort(new Comparator<TripRoute>() {
+            tripRouteList.sort(new Comparator<TripRoute>() {
                 @Override
                 public int compare(TripRoute route1, TripRoute route2) {
                     return Double.compare(route1.getCosts(),route2.getCosts());
@@ -104,32 +115,31 @@ public class TripRouteListAdapter extends BaseAdapter {
             });
         }
 
-        return routeList;
+        notifyDataSetChanged();
     }
 
-    public List<TripRoute> sortForDistance(List<TripRoute> routeList){
+    public void sortForDistance(){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            routeList.sort(new Comparator<TripRoute>() {
+            tripRouteList.sort(new Comparator<TripRoute>() {
                 @Override
                 public int compare(TripRoute route1, TripRoute route2) {
                     return Double.compare(route1.getDistance(),route2.getDistance());
                 }
             });
         }
-
-        return routeList;
+        notifyDataSetChanged();
     }
 
-    public List<TripRoute> sortForDuration(List<TripRoute> routeList){
+    public void sortForDuration(){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            routeList.sort(new Comparator<TripRoute>() {
+            tripRouteList.sort(new Comparator<TripRoute>() {
                 @Override
                 public int compare(TripRoute route1, TripRoute route2) {
                     return Double.compare(route1.getDuration(),route2.getDuration());
                 }
             });
         }
+        notifyDataSetChanged();
 
-        return routeList;
     }
 }

@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <FrameLayout
@@ -86,6 +87,7 @@
                 android:layout_marginRight="8dp"
                 android:autofillHints="@string/hint_edit_start"
                 android:hint="@string/location_start"
+                android:textColor="@android:color/white"
                 android:focusable="true"
                 android:layout_weight="1"/>
 
@@ -102,5 +104,14 @@
 
     </FrameLayout>
 
-
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:layout_gravity="bottom"
+        android:layout_alignParentBottom="true"
+        app:menu="@menu/bottom_navigation_menu"
+        app:itemIconTint="@android:color/darker_gray"
+        app:itemTextColor="@android:color/darker_gray"
+        app:labelVisibilityMode="labeled"
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 </LinearLayout>

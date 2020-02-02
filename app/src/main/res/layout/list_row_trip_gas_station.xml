@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/shape_list_item">
+
+
+
+
+
+    <LinearLayout
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/tv_gasstation_brand"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:text="BRAND"/>
+        <TextView
+            android:id="@+id/tv_gasstation_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
+            android:textSize="10sp"
+            android:text="TITLE"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_route_properties"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/white"
+        android:layout_weight="4"
+        android:gravity="right"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:textFontWeight="4"
+        android:text="TEST"/>
+</LinearLayout>

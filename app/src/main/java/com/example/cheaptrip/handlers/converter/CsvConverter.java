@@ -1,5 +1,6 @@
 package com.example.cheaptrip.handlers.converter;
 
+import android.icu.text.Edits;
 import android.util.Log;
 import android.util.Pair;
 
@@ -20,10 +21,14 @@ import java.sql.Ref;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import okhttp3.ResponseBody;
 import retrofit2.Converter;
+
+import static org.apache.commons.lang3.StringUtils.split;
 
 /**
  * Converter Class that converts CSV Strings into Java Objects.
@@ -94,10 +99,13 @@ public class CsvConverter<ReferencedClass> implements Converter<ResponseBody,Lis
          * Read the CSV-Lines into a ReferencedClass Object
          *=======================================================================================*/
         String currLine;
-        while((currLine = reader.readLine()) != null) {
-            String[] arrCurrLine = currLine.split(",");
 
+
+        while((currLine = reader.readLine()) != null) {
+            currLine = currLine.replace("\"\"","\\\"");     // replace double quotes with escaped quote
+            String []arrCurrList = currLine.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
             ReferencedClass referencedObject = null;
+
 
             try {
                 referencedObject = myClass.newInstance();
@@ -108,9 +116,28 @@ public class CsvConverter<ReferencedClass> implements Converter<ResponseBody,Lis
             /*======================================================================
              * Get the Field of the Referenced Class and get the Annotations
              *======================================================================*/
-            for (int i = 0; i < arrCurrLine.length-1; i++) {
-                String value = arrCurrLine[i];
+
+
+            for(int i =0 ; i< arrHeaders.length-1;i++){
+                String value = arrCurrList[i];
                 String header = headerList.get(i);
+            /*StringTokenizer tokenizer = new StringTokenizer(currLine, ",",true);
+            String previousToken = "";
+
+            while(tokenizer.hasMoreTokens()){
+                String value = tokenizer.nextToken();
+
+                if (value.equals(",")) {
+                    if(previousToken.equals(",")) {
+                        headerIterator.next();
+                    }
+                    previousToken = value;
+                    continue;
+                }
+
+                previousToken = value;
+
+                String header = headerIterator.next();*/
 
                 if(!fieldPropertyMap.containsKey(header)){
                     continue;
