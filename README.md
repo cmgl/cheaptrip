@@ -19,6 +19,8 @@ This program is distributed in the hope that it will be useful, but WITHOUT ANY 
 
 You should have received a copy of the GNU Affero General Public License along with this program.  If not, see https://opensource.org/licenses/AGPL-3.0.
 
+SPDX-License-Identifier: AGPL-3.0-or-later
+
 ## Open Source Notices
 Portions of this application contain the following open source software used under the specified license:\
 [Open Data Service (ODS)](https://github.com/jvalue/open-data-service-ms) ([AGPL-3.0](https://opensource.org/licenses/AGPL-3.0))\
