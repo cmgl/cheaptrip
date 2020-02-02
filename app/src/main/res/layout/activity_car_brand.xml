@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -13,7 +13,7 @@
         android:elevation="20dp"
         android:background="@drawable/shape_layout_round_corners">
         <EditText
-            android:id="@+id/edit_brand"
+            android:id="@+id/edit_search_vehicle_property"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"

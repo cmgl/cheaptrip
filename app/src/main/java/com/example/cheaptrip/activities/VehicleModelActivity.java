@@ -51,8 +51,8 @@ public class VehicleModelActivity extends ListActivity {
         ((CheapTripApp)getApplication()).setCurrentActivity(this);
 
         // Initialize Views
-        setContentView(R.layout.activity_car_model);
-        edit_searchModel = findViewById(R.id.edit_model);
+        setContentView(R.layout.activity_car_brand);
+        edit_searchModel = findViewById(R.id.edit_search_vehicle_property);
 
         // Get tripVehicle
         Intent intent = getIntent();

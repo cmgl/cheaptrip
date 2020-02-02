@@ -39,6 +39,7 @@ import com.example.cheaptrip.views.TripInfoWindow;
 import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
 import org.osmdroid.events.MapEventsReceiver;
+import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.tileprovider.tilesource.XYTileSource;
 import org.osmdroid.util.BoundingBox;
 import org.osmdroid.util.GeoPoint;
@@ -165,15 +166,15 @@ public class MapActivity extends Activity {
         /*===============================================================================
          * Set different Tile Source (--> HttpMapnik is faster as the default TileSource)
          *==============================================================================*/
-        //mMapView.setTileSource(TileSourceFactory.MAPNIK);
-        mMapView.setTileSource(
+        mMapView.setTileSource(TileSourceFactory.MAPNIK);
+     /*   mMapView.setTileSource(
                 new XYTileSource("HttpMapnik",
                         0, 19, 256, ".png", new String[] {
                         "http://a.tile.openstreetmap.org/",
                         "http://b.tile.openstreetmap.org/",
                         "http://c.tile.openstreetmap.org/" },
                         "© OpenStreetMap contributors")
-        );
+        );*/
         /*===============================================================================
          * Get the current Location
          *==============================================================================*/

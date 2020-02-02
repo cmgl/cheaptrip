@@ -57,7 +57,7 @@ public class VehicleBrandActivity extends ListActivity {
         // Initialize Views
         setContentView(R.layout.activity_car_brand);
         progressBar = findViewById(R.id.progress_gauge);
-        edit_searchBrand = findViewById(R.id.edit_brand);
+        edit_searchBrand = findViewById(R.id.edit_search_vehicle_property);
 
         // Get tripVehicle
         Intent intent = getIntent();

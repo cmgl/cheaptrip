@@ -67,6 +67,9 @@ public class CalculationActivity extends AppCompatActivity {
     private volatile boolean mIsListLoaded = false;         // will be set as soon the TripRoute List is loaded
     private BottomNavigationView bottomNavigation;
 
+
+
+
     /**
      * This function will be called on Activity creation
      * It takes care of initializing the views attached to the layout
