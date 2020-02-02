@@ -12,6 +12,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -23,9 +24,7 @@ android {
         unitTests.includeAndroidResources = true
 
         unitTests.all {
-            if (it.name == 'ExampleUnitTest') {
-                systemProperty 'debug', 'true'
-            }
+            systemProperty 'debug', 'true'
         }
     }
 }
@@ -39,8 +38,8 @@ tasks.withType(Test) {
     }
 }
 
-configurations{
-    all{
+configurations {
+    all {
         exclude group: 'xpp3', module: 'xpp3'
     }
 }
@@ -72,7 +71,7 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxjava:2.2.9'
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.5.0'
     // Retrofit Scalars Converter
-    implementation'com.squareup.retrofit2:converter-scalars:2.5.0'
+    implementation 'com.squareup.retrofit2:converter-scalars:2.5.0'
 
     // for XML Conversion
     implementation "com.squareup.retrofit2:converter-simplexml:2.5.0"
@@ -83,7 +82,8 @@ dependencies {
     def room_version = "2.2.1"
 
     implementation "androidx.room:room-runtime:$room_version"
-    annotationProcessor "androidx.room:room-compiler:$room_version" // For Kotlin use kapt instead of annotationProcessor
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+    // For Kotlin use kapt instead of annotationProcessor
 
     // optional - Kotlin Extensions and Coroutines support for Room
     implementation "androidx.room:room-ktx:$room_version"

@@ -1,0 +1,5 @@
+Portions of the scripts included in this folder use the following open source software:
+
+csvquote, which is licensed under MIT license. A copy of this license can be obtained at
+https://opensource.org/licenses/MIT. The source code for this software is available at
+https://github.com/dbro/csvquote.
