@@ -51,14 +51,14 @@
         android:id="@+id/rel_layout_calc_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:background="@drawable/shape_layout_round_corners">
+        android:layout_weight="1">
 
         <LinearLayout
             android:id="@+id/linear_layout_list_filter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:background="@drawable/shape_layout_round_corners">
             <TextView
                 android:text="Sort Criteria"
                 android:textAlignment="center"
@@ -77,6 +77,7 @@
                 android:onClick="onSortButtonClicked"
                 android:src="@drawable/sort_costs_green"
                 android:text="Costs"
+                android:layout_marginRight="10dp"
                 android:textColor="@android:color/white"
                 />
 
@@ -89,6 +90,7 @@
                 android:onClick="onSortButtonClicked"
                 android:src="@drawable/sort_time"
                 android:text="Duration"
+                android:layout_marginRight="10dp"
                 android:textColor="@android:color/white" />
 
             <ImageButton
@@ -99,6 +101,7 @@
                 android:background="@android:color/transparent"
                 android:onClick="onSortButtonClicked"
                 android:padding="0dp"
+                android:layout_marginRight="10dp"
                 android:src="@drawable/sort_distance"
                 android:text="Distance"
                 android:textColor="@android:color/white" />
