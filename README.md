@@ -1,5 +1,4 @@
 [![Travis (.org)](https://img.shields.io/travis/cmgl/cheaptrip)](https://travis-ci.org/cmgl/cheaptrip)
-![GitHub](https://img.shields.io/github/license/cmgl/cheaptrip)
 ![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/cmgl/cheaptrip)
 
 
