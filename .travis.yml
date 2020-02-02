@@ -11,7 +11,6 @@ android:
     - 'google-gdk-license-.+'
   components:
     - tools
-    - tools
     - platform-tools
     - extra-google-google_play_services
     - extra-google-m2repository
@@ -21,9 +20,12 @@ android:
     - sys-img-armeabi-v7a-android-22
 
 before_install:
-  - chmod +x gradlew
+  - mkdir -p .android && touch ~/.android/repositories.cfg
   - yes | sdkmanager "platforms;android-27"
   - yes | sdkmanager "platforms;android-28"
+  - yes | sdkmanager "platforms;android-29"
+  - chmod +x gradlew
+  - ./gradlew test
 
 before_script:
   - echo no | android create avd --force -n test -t android-22 --abi armeabi-v7a

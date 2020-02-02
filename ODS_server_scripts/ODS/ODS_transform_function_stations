@@ -1,0 +1,40 @@
+function createRec(propArr, resultingObj, index) {
+  var prop,
+    value_Str = 's'; // stop char
+  for (var j = index || 0, len1 = propArr.length; j < len1; j += 1) {
+    prop = propArr[j];
+    if (!resultingObj[prop]) {
+      resultingObj[prop] = {};
+    }
+    if (propArr[j + 2] === value_Str) {
+      resultingObj[prop] = propArr[j + 1];
+      j += 2;
+    } else {
+      createRec(propArr, resultingObj[prop], j + 1);
+      j = len1;
+    }
+  }
+}
+var result = {};
+var i;
+for (i = 0; i < data.length; i++) {
+    var values = [data[i].uuid, "brand", data[i].brand, 's'];
+    createRec(values, result);
+    var values = [data[i].uuid, "name", data[i].name, 's'];
+    createRec(values, result);
+    var values = [data[i].uuid, "post_code", data[i].post_code, 's'];
+    createRec(values, result);
+    var values = [data[i].uuid, "city", data[i].city, 's'];
+    createRec(values, result);
+    var values = [data[i].uuid, "street", data[i].street, 's'];
+    createRec(values, result);
+    var values = [data[i].uuid, "house_number", data[i].house_number, 's'];
+    createRec(values, result);
+    var values = [data[i].uuid, "latitude", data[i].latitude, 's'];
+    createRec(values, result);
+    var values = [data[i].uuid, "longitude", data[i].longitude, 's'];
+    createRec(values, result);
+    var values = [data[i].uuid, "openingtimes_json", data[i].openingtimes_json, 's'];
+    createRec(values, result);
+}
+return result;

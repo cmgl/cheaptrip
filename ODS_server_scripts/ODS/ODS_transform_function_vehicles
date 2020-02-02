@@ -1,0 +1,41 @@
+function createRec(propArr, resultingObj, index) {
+  var prop,
+    value_Str = 's'; // stop char
+  for (var j = index || 0, len1 = propArr.length; j < len1; j += 1) {
+    prop = propArr[j];
+    if (!resultingObj[prop]) {
+      resultingObj[prop] = {};
+    }
+    if (propArr[j + 2] === value_Str) {
+      resultingObj[prop] = propArr[j + 1];
+      j += 2;
+    } else {
+      createRec(propArr, resultingObj[prop], j + 1);
+      j = len1;
+    }
+  }
+}
+var result = {};
+var i;
+for (i = 0; i < data.length; i++) {
+    var fuelTypeGer;
+    if (data[i].fuelType == "Premium"){
+        fuelTypeGer = "e5";
+    } else if (data[i].fuelType == "Regular"){
+        fuelTypeGer = "e10";
+    } else if (data[i].fuelType == "Diesel"){
+        fuelTypeGer = "diesel";
+    } else {
+        continue;
+    }
+    var consumptionCi = 100/((data[i].cityCo * 1.609)/4.546);
+    var consumptionHi = 100/((data[i].highwayCo * 1.609)/4.546);
+    var consumptionCo = 100/((data[i].combinedCo * 1.609)/4.546);
+    var values = [data[i].year, data[i].brand, data[i].model + " " + data[i].transmission, fuelTypeGer, "city", consumptionCi, 's'];
+    createRec(values, result);
+    var values = [data[i].year, data[i].brand, data[i].model + " " + data[i].transmission, fuelTypeGer, "highway", consumptionHi, 's'];
+    createRec(values, result);
+    var values = [data[i].year, data[i].brand, data[i].model + " " + data[i].transmission, fuelTypeGer, "combined", consumptionCo, 's'];
+    createRec(values, result);
+}
+return result;
