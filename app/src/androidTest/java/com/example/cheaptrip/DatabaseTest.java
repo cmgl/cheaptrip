@@ -37,6 +37,7 @@ public class DatabaseTest {
                 "2020",
                 "Mercedes-Benz",
                 "C220",
+                "e5",
                 12.0,
                 13.0,
                 8.0
