@@ -199,10 +199,10 @@ public class CalcMapFragment extends Fragment {
         Drawable defaultIcon = getResources().getDrawable(R.drawable.marker_default);
         if(tripLocation instanceof TripGasStation){
 
-            icon = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_gas_station, null);
+            icon = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_gas_station_map, null);
             //icon = getResources().getDrawable(R.drawable.ic_gas_station);
             //icon.setBounds(0,0,defaultIcon.getIntrinsicWidth(), defaultIcon.getIntrinsicHeight());
-            icon.setBounds(defaultIcon.getBounds());
+            icon.setBounds(icon.getBounds());
 
         }else{
             icon = defaultIcon;

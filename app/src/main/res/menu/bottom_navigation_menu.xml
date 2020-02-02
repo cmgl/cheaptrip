@@ -8,7 +8,7 @@
 
     <item
         android:id="@+id/bottom_nav_stations"
-        android:icon="@drawable/ic_gas_station"
+        android:icon="@drawable/ic_gas_station_nav"
         android:title="Stations" />
 
     <item
