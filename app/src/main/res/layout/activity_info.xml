@@ -5,73 +5,82 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="5dp"
-        android:padding="10dp"
-        app:cardBackgroundColor="#C4141313"
-        card_view:cardCornerRadius="4dp"
-        card_view:cardElevation="10dp">
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:autoLink="web"
-        android:textColor="@android:color/white"
-        android:text="@string/Info"/>
-    </androidx.cardview.widget.CardView>
+        android:layout_height="wrap_content">
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="5dp"
-        android:padding="10dp"
-        app:cardBackgroundColor="#C4141313"
-        card_view:cardCornerRadius="4dp"
-        card_view:cardElevation="10dp">
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:autoLink="web"
-        android:textColor="@android:color/white"
-        android:text="@string/license"/>
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="5dp"
-        android:padding="10dp"
-        app:cardBackgroundColor="#C4141313"
-        card_view:cardCornerRadius="4dp"
-        card_view:cardElevation="10dp">
-        <TextView
-            android:id="@+id/tv_license"
-            android:autoLink="web"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textColor="@android:color/white"
-            android:text="@string/opensource_notice"
-            />
-    </androidx.cardview.widget.CardView>
+            android:orientation="vertical">
 
-    </LinearLayout>
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                android:padding="10dp"
+                app:cardBackgroundColor="#C4141313"
+                card_view:cardCornerRadius="4dp"
+                card_view:cardElevation="10dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:autoLink="web"
+                    android:text="@string/Info"
+                    android:textColor="@android:color/white" />
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                android:padding="10dp"
+                app:cardBackgroundColor="#C4141313"
+                card_view:cardCornerRadius="4dp"
+                card_view:cardElevation="10dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:autoLink="web"
+                    android:text="@string/license"
+                    android:textColor="@android:color/white" />
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                android:padding="10dp"
+                app:cardBackgroundColor="#C4141313"
+                card_view:cardCornerRadius="4dp"
+                card_view:cardElevation="10dp">
+
+                <TextView
+                    android:id="@+id/tv_license"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:autoLink="web"
+                    android:text="@string/opensource_notice"
+                    android:textColor="@android:color/white" />
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+    </ScrollView>
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:layout_gravity="bottom"
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        app:menu="@menu/bottom_navigation_menu"
+        android:layout_gravity="bottom"
         app:itemIconTint="@drawable/selector_bottombar"
         app:itemTextColor="@drawable/selector_bottombar"
         app:labelVisibilityMode="labeled"
-        android:id="@+id/bottomNavigationView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        app:menu="@menu/bottom_navigation_menu" />
 
 </RelativeLayout>
