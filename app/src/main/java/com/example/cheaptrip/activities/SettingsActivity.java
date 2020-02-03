@@ -110,7 +110,7 @@ public class SettingsActivity  extends Activity {
 
                 if(!tankerKey.isEmpty())
                     editor.putString(TANKER_CONFIG_KEY, tankerKey);
-                editor.commit();
+                editor.apply();
 
                 Toast.makeText(this, "Api Key Applied", Toast.LENGTH_SHORT).show();
                 break;

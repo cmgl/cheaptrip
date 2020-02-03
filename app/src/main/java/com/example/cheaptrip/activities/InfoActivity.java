@@ -30,9 +30,9 @@ public class InfoActivity extends Activity {
 
         bottomNavigation = findViewById(R.id.bottomNavigationView);
         Navigation.setBottomNavigation(this,bottomNavigation);
-        bottomNavigation.getMenu().findItem(R.id.bottom_nav_settings).setChecked(true);
+        bottomNavigation.getMenu().findItem(R.id.bottom_nav_info).setChecked(true);
 
-        TextView t2 = (TextView) findViewById(R.id.tv_license);
+        TextView t2 = findViewById(R.id.tv_license);
         t2.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
@@ -57,7 +57,7 @@ public class InfoActivity extends Activity {
     public void onResume(){
         super.onResume();
 
-        bottomNavigation.getMenu().findItem(R.id.bottom_nav_settings).setChecked(true);
+        bottomNavigation.getMenu().findItem(R.id.bottom_nav_info).setChecked(true);
         CheapTripApp cheapTripApp = (CheapTripApp) getApplication();
         cheapTripApp .setCurrentActivity( this ) ;
     }
