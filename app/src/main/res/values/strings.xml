@@ -16,9 +16,51 @@
 
 
 
-    <string name="Info">INFO</string>
-    <string name="license">LICENSE</string>
-    <string name="opensource_notice">http://www.google.com</string>
+    <string name="Info">
+\n
+The CheapTrip Android app for Advanced Methods of Software Engineering (AMSE) at Friedrich-Alexander Universität Erlangen-Nürnberg in winter semester 2019/2020.\n
+    </string>
+    <string name="license">
+\n
+Copyright (C) 2020 Hannes Fleischer\n
+Copyright (C) 2020 Cristian Mogildea\n
+Copyright (C) 2020 Friedrich-Alexander Universität Erlangen-Nürnberg\n
+\n
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU Affero General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.\n
+\n
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License for more details.\n
+\n
+You should have received a copy of the GNU Affero General Public License along with this program. If not, see https://opensource.org/licenses/AGPL-3.0.\n
+\n
+SPDX-License-Identifier: AGPL-3.0-or-later\n
+    </string>
+    <string name="opensource_notice">
+\n
+Portions of this application contain the following open source software used under the specified license:\n
+Open Data Service (ODS) (AGPL-3.0)\n
+osmdroid (Apache-2.0)\n
+Mapnik (LGPL-2.1)\n
+OSMBonusPack (LGPL-3.0)\n
+Retrofit (Apache-2.0)\n
+Photon (Apache-2.0)\n
+Gson (Apache-2.0)\n
+csvquote (MIT)\n
+\n
+This application uses the following data sources or service providers under the specified license:\n
+FuelEconomy.gov (U.S. Public Domain)\n
+Tankerkönig (CC-BY-4.0)\n
+(C) OpenStreetMap contributors (ODbL)\n
+(C) OpenStreetMap map tiles (CC-BY-SA-2.0)\n
+(C) OpenRouteService (CC-BY-4.0)\n
+Photon (see terms of use)\n
+\n
+This application contains the following graphic resources:\n
+Blue road sign with gas station by ikaika from www.freepik.com\n
+Location by rawpixel.com from www.freepik.com\n
+Road icon with two flags by ikaika from www.freepik.com\n
+Gas station by Those Icons from www.flaticon.com\n
+Airport board font by rocketpixel from www.freepik.com\n
+    </string>
 
     <string-array name="fuel_type_array">
         <item>Select Fuel Type</item>
