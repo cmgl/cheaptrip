@@ -92,12 +92,14 @@
                 android:layout_weight="1"/>
 
             <Button
+                android:id="@+id/btn_search_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="3dp"
                 android:layout_marginTop="5dp"
+                android:layout_marginRight="3dp"
                 android:layout_weight="1"
-                android:background="@android:drawable/ic_menu_search" />
+                android:background="@android:drawable/ic_menu_search"
+                android:onClick="onSearchButtonClicked" />
 
         </LinearLayout>
 

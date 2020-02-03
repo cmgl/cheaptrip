@@ -1,8 +1,11 @@
 package com.example.cheaptrip.views.fragments;
 
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.Icon;
+import android.graphics.drawable.ScaleDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,9 +32,12 @@ import com.example.cheaptrip.services.GPSService;
 import com.google.gson.Gson;
 
 import org.osmdroid.api.IMapController;
+import org.osmdroid.bonuspack.BuildConfig;
 import org.osmdroid.bonuspack.kml.KmlDocument;
 import org.osmdroid.bonuspack.kml.KmlFeature;
+import org.osmdroid.config.Configuration;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
+import org.osmdroid.tileprovider.tilesource.XYTileSource;
 import org.osmdroid.util.BoundingBox;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
@@ -64,7 +70,6 @@ public class CalcMapFragment extends Fragment {
     private TripLocation endLocation;
 
     TripVehicle tripVehicle;                            // TripVehicle
-
 
 
     @Nullable
@@ -124,31 +129,43 @@ public class CalcMapFragment extends Fragment {
         mMapView.getOverlays().clear();
     }
 
+    /**
+     * Initializes the Map (selects tile source and the controls.
+     */
     private void initMap(){
-        mMapView.setTileSource(TileSourceFactory.MAPNIK);
+        GPSService gpsService = new GPSService(getActivity().getApplicationContext());
+        mMapView.setTileSource(
+                new XYTileSource("HttpMapnik",
+                        0, 19, 256, ".png", new String[] {
+                        "http://a.tile.openstreetmap.org/",
+                        "http://b.tile.openstreetmap.org/",
+                        "http://c.tile.openstreetmap.org/" },
+                        "© OpenStreetMap contributors"));
         mMapView.setMultiTouchControls(true);
 
-        GPSService gpsService = new GPSService(getActivity().getApplicationContext());
 
         if(startLocation == null || endLocation == null){
             return;
         }
 
         if (gpsService.canGetLocation()) {
-
+            Configuration.getInstance().setUserAgentValue(BuildConfig.APPLICATION_ID);
             mMapController = mMapView.getController();
             mMapController.setZoom(20.0);
             GeoPoint startPoint = new GeoPoint(startLocation.getLatitdue(), startLocation.getLongitude());
             mMapController.setCenter(startPoint);
-
-            drawMarker(startLocation);
-            drawMarker(endLocation);
-
         }
 
     }
 
-    private void getBaseRoute(TripLocation startLocation, TripLocation endLocation){
+    /**
+     * Gets the base route between source and destination as geoJSON,
+     * by calling the rest API of OpenRouteservice.org
+     *
+     * @param startLocation     Source Location
+     * @param endLocation       Destination
+     */
+    private void getBaseRoute(final TripLocation startLocation, final TripLocation endLocation){
         if(startLocation == null){
             Log.e("CHEAPTRIP","CalcMapFragment->getBaseRoute: Cannot get the base Route: startLocation is null");
             return;
@@ -176,7 +193,10 @@ public class CalcMapFragment extends Fragment {
                 String geoJSON = tripRoute.getGeoJSON();
                 startEndRouteJSON = geoJSON;
                 drawRoute(geoJSON, Color.GREEN);
+                drawMarker(startLocation);
+                drawMarker(endLocation);
                 setDirectionBbox(geoJSON);
+
             }
 
             @Override
@@ -188,28 +208,34 @@ public class CalcMapFragment extends Fragment {
     }
 
 
+    /**
+     * Draws a marker to the map ( it will be set with the properties of argument tripLocation)
+     *
+     * @param tripLocation  tripLocation containing title and coordinates for the marker
+     */
     private void drawMarker(TripLocation tripLocation){
         Marker marker= new Marker(mMapView);
         marker.setPosition(new GeoPoint(tripLocation.getLatitdue(),tripLocation.getLongitude()));
         marker.setTitle(tripLocation.getLocationName());
 
-
-
         Drawable icon;
-        Drawable defaultIcon = getResources().getDrawable(R.drawable.marker_default);
-        if(tripLocation instanceof TripGasStation){
 
+
+        if (tripLocation == startLocation){
+            icon = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_source, null);
+        }else if(tripLocation == endLocation){
+            icon = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_destination, null);
+
+        }else if(tripLocation instanceof TripGasStation){
             icon = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_gas_station_map, null);
-            //icon = getResources().getDrawable(R.drawable.ic_gas_station);
-            //icon.setBounds(0,0,defaultIcon.getIntrinsicWidth(), defaultIcon.getIntrinsicHeight());
-            icon.setBounds(icon.getBounds());
-
         }else{
-            icon = defaultIcon;
+            icon = getResources().getDrawable(R.drawable.marker_default);;
         }
 
+        icon.setBounds(marker.getIcon().getBounds());
+
         marker.setIcon(icon);
-        marker.setAnchor(0.3f, 0.3f);
+        marker.setAnchor(0.2f,0.34f);
         mMapView.getOverlays().add(marker);
         mMapView.invalidate();
     }
@@ -233,6 +259,11 @@ public class CalcMapFragment extends Fragment {
         }
     }
 
+    /**
+     * Sets the BoundingBox (Frame on the map) for given Route provided in geoJSON
+     *
+     * @param geoJSON   geoJSON providing relevant information of the route
+     */
     public void setDirectionBbox(String geoJSON){
         if(geoJSON == null || geoJSON.length() < 1){
             Log.e("CHEAPTRIP", "Cannot set BoundingBox from Empty GeoJSON String");
@@ -307,7 +338,11 @@ public class CalcMapFragment extends Fragment {
         }
     }
 
+
+
     private void updateMarkers(List<TripLocation> tripLocationList,boolean updateBbox) {
+
+
         for(TripLocation tripLocation : tripLocationList){
             drawMarker(tripLocation);
         }

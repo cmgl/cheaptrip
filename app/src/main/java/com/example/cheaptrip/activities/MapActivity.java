@@ -1,10 +1,6 @@
 package com.example.cheaptrip.activities;
 
 import android.app.Activity;
-import android.app.ActivityManager;
-import android.app.Application;
-import android.app.LocalActivityManager;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 
@@ -18,6 +14,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 
 import android.widget.ListView;
@@ -32,21 +29,23 @@ import com.example.cheaptrip.handlers.rest.geo.GeoLocationsForNameHandler;
 import com.example.cheaptrip.handlers.rest.geo.GeoNameForLocationHandler;
 import com.example.cheaptrip.models.TripLocation;
 import com.example.cheaptrip.models.photon.Location;
-import com.example.cheaptrip.models.photon.Properties;
+
 import com.example.cheaptrip.services.GPSService;
+import com.example.cheaptrip.views.Navigation;
 import com.example.cheaptrip.views.TripInfoWindow;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
 import org.osmdroid.events.MapEventsReceiver;
-import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
+
 import org.osmdroid.tileprovider.tilesource.XYTileSource;
 import org.osmdroid.util.BoundingBox;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.MapEventsOverlay;
 import org.osmdroid.views.overlay.Marker;
-import org.osmdroid.views.overlay.infowindow.InfoWindow;
+
 
 
 import java.util.ArrayList;
@@ -70,6 +69,7 @@ public class MapActivity extends Activity {
     private Marker currentSelectedMarker;               // Marker, representing the current selected Location
     private Marker currentLocationMarker;               // Marker, representing the current current Location
     private Marker customLocationMarker;                // Marker, representing a Location picked form the map
+    private BottomNavigationView bottomNavigation;      // BottomNavigation
 
 
     /**
@@ -110,6 +110,10 @@ public class MapActivity extends Activity {
         editLocationInput = findViewById(R.id.edit_start);
         locationList = findViewById(R.id.list_map_locations);
         txtView_currentLocation = findViewById(R.id.tv_curr_location);
+        bottomNavigation = findViewById(R.id.bottomNavigationView);
+
+        Navigation.setBottomNavigation(this,bottomNavigation);
+        bottomNavigation.getMenu().findItem(R.id.bottom_nav_route).setChecked(true);
         /*===============================================================================
          * Initialize the Map and the Location List
          *==============================================================================*/
@@ -142,6 +146,7 @@ public class MapActivity extends Activity {
     public void onResume(){
         super.onResume();
         mMapView.onResume();
+        bottomNavigation.getMenu().findItem(R.id.bottom_nav_route).setChecked(true);
         CheapTripApp cheapTripApp = (CheapTripApp) getApplication();
         cheapTripApp .setCurrentActivity( this ) ;
     }
@@ -151,6 +156,8 @@ public class MapActivity extends Activity {
      * The Activity will be removed from top of the stack (-> registration to the app)
      */
     public void onPause(){
+        overridePendingTransition(0, 0);
+
         super.onPause();
         mMapView.onPause();
 
@@ -166,15 +173,15 @@ public class MapActivity extends Activity {
         /*===============================================================================
          * Set different Tile Source (--> HttpMapnik is faster as the default TileSource)
          *==============================================================================*/
-        mMapView.setTileSource(TileSourceFactory.MAPNIK);
-     /*   mMapView.setTileSource(
+        //mMapView.setTileSource(TileSourceFactory.MAPNIK);
+        mMapView.setTileSource(
                 new XYTileSource("HttpMapnik",
                         0, 19, 256, ".png", new String[] {
                         "http://a.tile.openstreetmap.org/",
                         "http://b.tile.openstreetmap.org/",
                         "http://c.tile.openstreetmap.org/" },
                         "© OpenStreetMap contributors")
-        );*/
+        );
         /*===============================================================================
          * Get the current Location
          *==============================================================================*/
@@ -218,7 +225,6 @@ public class MapActivity extends Activity {
             locationListHandler.setListTouchListeners();
             locationListHandler.setEditorActionListener();
         }
-
     }
 
     /**
@@ -524,7 +530,10 @@ public class MapActivity extends Activity {
                 if(currentActivity instanceof MapActivity){
                     marker.setTitle(locationName);
                     TripInfoWindow tripInfoWindow = (TripInfoWindow) marker.getInfoWindow();
-                    tripInfoWindow.setText(locationName);
+
+                    if(tripInfoWindow != null) {
+                        tripInfoWindow.setText(locationName);
+                    }
 
                 }else if (currentActivity instanceof MainActivity){
                     ((MainActivity) currentActivity).edit_start.setText(locationName);
@@ -729,5 +738,26 @@ public class MapActivity extends Activity {
         return new BoundingBox(maxLat, maxLon, minLat, minLon);
     }
 
+    /**
+     * Callback function for Search Button clicked.
+     *
+     * Loads Markers based on the Entered Text.
+     *
+     * @param view  search Button
+     */
+    public void onSearchButtonClicked(View view){
+        if(view.getId() == R.id.btn_search_location){
+
+
+            if(editLocationInput != null){
+                String enteredText = editLocationInput.getText().toString();
+
+                if(enteredText != null || !enteredText.isEmpty()) {
+                    loadMarkers(enteredText);
+                }
+            }
+
+        }
+    }
 
 }

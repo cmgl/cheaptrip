@@ -90,7 +90,7 @@ public class CalculationActivity extends AppCompatActivity {
         mViewPager = findViewById(R.id.viewpager_calc);
 
         bottomNavigation = findViewById(R.id.bottomNavigationView);
-        bottomNavigation.setSelectedItemId(R.id.bottom_nav_stations);
+        bottomNavigation.getMenu().findItem(R.id.bottom_nav_route).setChecked(true);
         Navigation.setBottomNavigation(this,bottomNavigation);
 
         /*============================================================
@@ -128,7 +128,7 @@ public class CalculationActivity extends AppCompatActivity {
      */
     public void onResume(){
         super.onResume();
-
+        bottomNavigation.getMenu().findItem(R.id.bottom_nav_route).setChecked(true);
         CheapTripApp cheapTripApp = (CheapTripApp) getApplication();
         cheapTripApp .setCurrentActivity( this ) ;
     }
@@ -139,6 +139,7 @@ public class CalculationActivity extends AppCompatActivity {
      */
     public void onPause(){
         super.onPause();
+        overridePendingTransition(0, 0);
 
         CheapTripApp cheapTripApp = (CheapTripApp) getApplication();
         Activity currActivity = cheapTripApp.getCurrentActivity() ;
@@ -221,6 +222,9 @@ public class CalculationActivity extends AppCompatActivity {
                     public void OnRestSuccess(TripRoute tripRoute) {
                         List<TripRoute> tripRouteList = tripRouteListAdapter.getTripRouteList();
                         int index = tripRouteList.indexOf(oldTripRoute);
+
+                        tripRoute.setDistance(oldTripRoute.getDistance());
+                        tripRoute.setDuration(oldTripRoute.getDuration());
 
                         tripRouteList.set(index,tripRoute);
 

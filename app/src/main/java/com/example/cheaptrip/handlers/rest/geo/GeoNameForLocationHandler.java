@@ -12,12 +12,15 @@ import com.example.cheaptrip.models.photon.PhotonResponse;
 import retrofit2.Call;
 import retrofit2.Response;
 
+
+/**
+ * This Rest-Handler gets and extracts Location-Names for
+ */
 public class GeoNameForLocationHandler extends RestHandler<TripLocation,PhotonResponse> {
     private final static String BASE_URL = "http://photon.komoot.de/";
     private static GeoCompletionClient geoCompletionClient;
 
 
-    TripLocation mTripLocation;
     public GeoNameForLocationHandler(double lat, double lon){
         super(BASE_URL);
 

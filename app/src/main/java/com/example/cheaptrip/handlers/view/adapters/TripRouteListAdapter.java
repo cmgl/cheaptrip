@@ -66,10 +66,10 @@ public class TripRouteListAdapter extends BaseAdapter {
         View row = convertView;
         if (row == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            row = inflater.inflate(R.layout.list_row_vehicle_selection, parent, false);
+            row = inflater.inflate(R.layout.list_row_routes, parent, false);
         }
 
-        TextView textView = (TextView) row.findViewById(R.id.listText);
+        TextView textView = (TextView) row.findViewById(R.id.tv_route_properties);
         TripRoute route = tripRouteList.get(position);
 
         double costs = route.getCosts();
@@ -80,9 +80,16 @@ public class TripRouteListAdapter extends BaseAdapter {
         int mins =  (int)(duration%3600)/60;
         int secs =  (int)(duration%3600)%60;
 
-        String strTime = String.format("%d h %d m %d s",hours, mins, secs);
+        String strTime = "";
+        if(hours > 0)
+            strTime += hours + " h ";
 
-        String text = String.format(Locale.GERMANY,"Costs %23.2f €\nDuration:%22s\nDistance:%20.2f km",costs, strTime, distance);
+        if(hours > 0 && mins > 0)
+            strTime += mins + " m";
+
+        strTime += secs + " s";
+
+        String text = String.format(Locale.GERMANY,"%23.2f €\n%22s\n%20.2f km",costs, strTime, distance);
 
         textView.setText(text);
 

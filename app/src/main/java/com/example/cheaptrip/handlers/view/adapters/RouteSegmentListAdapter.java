@@ -98,11 +98,11 @@ public class RouteSegmentListAdapter extends BaseExpandableListAdapter {
         String strTime = "";
 
         if((int)hours != 0){
-            strTime += (int)hours + " h";
+            strTime += (int)hours + " h ";
         }
 
         if((int)mins != 0){
-            strTime += (int)mins + " m";
+            strTime += (int)mins + " m ";
         }
 
         strTime += (int)secs + " s";

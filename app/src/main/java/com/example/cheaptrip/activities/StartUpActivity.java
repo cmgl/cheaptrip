@@ -55,41 +55,6 @@ public class StartUpActivity extends AppCompatActivity {
 
         databasePopulationService.execute();
 
-
-
-
-
-
-     /*   GasStationHistoryHandler gasStationHistoryHandler = new GasStationHistoryHandler(2019,9,1);
-
-        gasStationHistoryHandler.makeAsyncRequest(new RestListener<List<Station>>() {
-            @Override
-            public void OnRestSuccess(List<Station> stations) {
-                GasStationDatabaseClient dbClient  = GasStationDatabase.getDatabase(getApplicationContext()).gasStationDatabaseClient();
-                dbClient.insertAll(stations);
-            }
-
-            @Override
-            public void OnRestFail() {
-
-            }
-        });
-
-
-        GasStationHistoryPriceHandler gasStationHistoryPriceHandler = new GasStationHistoryPriceHandler(2019,1,1);
-        gasStationHistoryPriceHandler.makeAsyncRequest(new RestListener<List<Station>>() {
-            @Override
-            public void OnRestSuccess(List<Station> stations) {
-                for(Station station :stations){
-
-                }
-            }
-
-            @Override
-            public void OnRestFail() {
-
-            }
-        });*/
     }
 
     /**

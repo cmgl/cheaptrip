@@ -29,6 +29,20 @@ import com.example.cheaptrip.models.photon.Location;
 
 import java.util.List;
 
+
+/**
+ * This class handles input in the search box (EditText) in {@link MapActivity}.
+ *
+ * It calls the rest api of photon to get AutoCompleted GeoNames from the Webservice
+ * and passes them to a list on Success.
+ *
+ * It also takes care of setting multiple markers to the map when the user "hits" search.
+ * Then it shows all marker that could be relevant by createria entered location name.
+ *
+ * It also sets a listener on the provided listview (see constructor).
+ * When an item of the list is clicked it will set a marker to the Map. (single location selection)
+ *
+ */
 public class LocationListHandler {
     private final Animation animSlideDown;
     private final Animation animSlideUp;
@@ -45,6 +59,13 @@ public class LocationListHandler {
     GeoLocationsForNameHandler mGeoNameRestHandler;
 
 
+    /**
+     * Constructor
+     * @param locationInput     TextView which represents a search box for Locations
+     * @param listView          ListView to be populated by the results of the search
+     * @param lat               Based on this Latitude nearby locationNames will appear first
+     * @param lon               Based on this Longitude nearby locationNames will appear first
+     */
     public LocationListHandler(EditText locationInput, final ListView listView, double lat, double lon) {
         this.locationInput = locationInput;
         this.listView = listView;

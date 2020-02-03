@@ -33,10 +33,12 @@
             android:id="@+id/tab_layout_calc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:tabBackground="@color/colorList2nd"
+            android:backgroundTint="@color/colorPrimaryDark"
+            app:tabBackground="@color/colorPrimaryDark"
             app:tabIndicator="@color/colorAccent"
             app:tabMode="fixed"
             app:tabTextColor="@color/colorAccent"
+            android:paddingBottom="5dp"
             />
 
         <androidx.viewpager.widget.ViewPager
@@ -159,8 +161,8 @@
         android:layout_gravity="bottom"
         android:layout_alignParentBottom="true"
         app:menu="@menu/bottom_navigation_menu"
-        app:itemIconTint="@android:color/darker_gray"
-        app:itemTextColor="@android:color/darker_gray"
+        app:itemIconTint="@drawable/selector_bottombar"
+        app:itemTextColor="@drawable/selector_bottombar"
         app:labelVisibilityMode="labeled"
         android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"

@@ -104,7 +104,7 @@ public class VehicleModelActivity extends ListActivity {
      */
     public void onPause(){
         super.onPause();
-
+        overridePendingTransition(0, 0);
         CheapTripApp cheapTripApp = (CheapTripApp) getApplication();
         Activity currActivity = cheapTripApp.getCurrentActivity() ;
 

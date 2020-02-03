@@ -5,21 +5,23 @@
 
         <TextView
             android:id="@+id/listTitle"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft"
             android:textColor="@android:color/black"
             android:paddingTop="10dp"
+            android:layout_weight="1"
             android:paddingBottom="10dp" />
 
         <TextView
             android:id="@+id/tv_route_properties"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft"
             android:textColor="@android:color/black"
             android:paddingTop="10dp"
-            android:gravity="end"
+            android:gravity="right"
+            android:layout_weight="3"
             android:paddingBottom="10dp" />
 
 </LinearLayout>

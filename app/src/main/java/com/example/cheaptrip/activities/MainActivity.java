@@ -147,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
      */
     public void onResume(){
         super.onResume();
-
+        bottomNavigation.getMenu().findItem(R.id.bottom_nav_route).setChecked(true);
         CheapTripApp cheapTripApp = (CheapTripApp) getApplication();
         cheapTripApp .setCurrentActivity( this ) ;
     }
@@ -183,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
 
         gauge = findViewById(R.id.tank_indicator);
         bottomNavigation = findViewById(R.id.bottomNavigationView);
-
+        bottomNavigation.getMenu().findItem(R.id.bottom_nav_route).setChecked(true);
         Navigation.setBottomNavigation(this,bottomNavigation);
         /*==============================================
          * Set Click Listener for Fuel Type

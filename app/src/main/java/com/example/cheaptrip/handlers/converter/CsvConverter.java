@@ -121,23 +121,6 @@ public class CsvConverter<ReferencedClass> implements Converter<ResponseBody,Lis
             for(int i =0 ; i< arrHeaders.length-1;i++){
                 String value = arrCurrList[i];
                 String header = headerList.get(i);
-            /*StringTokenizer tokenizer = new StringTokenizer(currLine, ",",true);
-            String previousToken = "";
-
-            while(tokenizer.hasMoreTokens()){
-                String value = tokenizer.nextToken();
-
-                if (value.equals(",")) {
-                    if(previousToken.equals(",")) {
-                        headerIterator.next();
-                    }
-                    previousToken = value;
-                    continue;
-                }
-
-                previousToken = value;
-
-                String header = headerIterator.next();*/
 
                 if(!fieldPropertyMap.containsKey(header)){
                     continue;

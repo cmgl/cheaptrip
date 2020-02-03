@@ -156,6 +156,7 @@
                 android:layout_height="wrap_content">
                 <EditText
                     android:id="@+id/edit_start"
+                    android:inputType="text"
                     android:layout_width="313dp"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
@@ -168,13 +169,14 @@
 
                     android:onClick="viewClickHandler"
                     android:selectAllOnFocus="false"
-                    android:singleLine="false"
+                    android:singleLine="true"
                     android:textColor="#FFFFFF"
                     android:textColorHint="@android:color/primary_text_dark_nodisable" />
 
                 <EditText
                     android:id="@+id/edit_destination"
                     android:layout_width="312dp"
+                    android:singleLine="true"
                     android:layout_height="wrap_content"
                     android:layout_alignBottom="@id/edit_start"
                     android:layout_centerHorizontal="true"
@@ -233,8 +235,8 @@
         android:layout_gravity="bottom"
         android:layout_alignParentBottom="true"
         app:menu="@menu/bottom_navigation_menu"
-        app:itemIconTint="@android:color/darker_gray"
-        app:itemTextColor="@android:color/darker_gray"
+        app:itemIconTint="@drawable/selector_bottombar"
+        app:itemTextColor="@drawable/selector_bottombar"
         app:labelVisibilityMode="labeled"
         android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"

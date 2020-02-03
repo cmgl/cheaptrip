@@ -2,10 +2,10 @@
 <resources>
     <color name="colorPrimary">#E8FFECEC</color>
     <color name="colorPrimaryDark">#000000</color>
-    <color name="colorAccent">#49071A</color>
+    <color name="colorAccent">#A52D4C</color>
     <color name="colorList2nd">#FDFBFB</color>
     <color name="color_arc">#AAA69B</color>
-    <color name="color_progress">#AF7E05</color>
-    <color name="color_text">#000000</color>
+    <color name="color_progress">#AF0505</color>
+    <color name="color_text">#FFFFFF</color>
     <color name="needle_color">#000000</color>
 </resources>

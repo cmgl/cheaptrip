@@ -2,7 +2,10 @@ package com.example.cheaptrip.activities;
 
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
+import android.os.StrictMode;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -36,6 +39,7 @@ import com.example.cheaptrip.views.fragments.CalcRouteFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
 
+import org.osmdroid.config.Configuration;
 import org.osmdroid.util.BoundingBox;
 
 import java.util.ArrayList;
@@ -83,14 +87,21 @@ public class GasStationActivity extends AppCompatActivity {
         lvRoutes = findViewById(R.id.list_routes);
 
         bottomNavigation = findViewById(R.id.bottomNavigationView);
+        bottomNavigation.setSelectedItemId(R.id.bottom_nav_stations);
         Navigation.setBottomNavigation(this,bottomNavigation);
-
+        bottomNavigation.getMenu().findItem(R.id.bottom_nav_stations).setChecked(true);
         tripVehicle = (TripVehicle) getIntent().getSerializableExtra("tripVehicle");
         /*============================================================
          * Start Actions
          *============================================================*/
         initFragments();
         initList();
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
+        Context ctx = getApplicationContext();
+        Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
     }
 
     /**
@@ -113,7 +124,7 @@ public class GasStationActivity extends AppCompatActivity {
      */
     public void onResume(){
         super.onResume();
-
+        bottomNavigation.getMenu().findItem(R.id.bottom_nav_stations).setChecked(true);
         CheapTripApp cheapTripApp = (CheapTripApp) getApplication();
         cheapTripApp .setCurrentActivity( this ) ;
     }
@@ -124,6 +135,8 @@ public class GasStationActivity extends AppCompatActivity {
      */
     public void onPause(){
         super.onPause();
+
+        overridePendingTransition(0, 0);        // No Animation when returning
 
         CheapTripApp cheapTripApp = (CheapTripApp) getApplication();
         Activity currActivity = cheapTripApp.getCurrentActivity() ;
@@ -248,6 +261,9 @@ public class GasStationActivity extends AppCompatActivity {
         setListListener();
     }
 
+    /**
+     * This Function's purpose is to fill the list with GasStations
+     */
     private void fillList(){
         if(currentLocation == null){
             Log.e("CHEAPTRIP","GasStationActivity->fillList(): currentLocation si empty: will not fill List");
@@ -319,7 +335,11 @@ public class GasStationActivity extends AppCompatActivity {
     }
 
 
-
+    /**
+     * Animates the Tank-Indicator while loading list entries.
+     *
+     * It will be stopped as soon the list is populated (-> mIsListloaded will be set to true)
+     */
     private void animateTankIndicator(){
         Thread thread = new Thread(new Runnable() {
             @Override

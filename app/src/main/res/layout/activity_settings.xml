@@ -29,14 +29,25 @@
                 android:textColor="@android:color/white"
                 android:textSize="20sp" />
 
-            <EditText
-                android:textColorHint="@android:color/white"
-                android:id="@+id/edit_tanker_key"
-                android:textColor="@android:color/white"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:inputType="textPassword" />
+                android:orientation="vertical">
+
+                <EditText
+                    android:textColorHint="@android:color/white"
+                    android:id="@+id/edit_tanker_key"
+                    android:textColor="@android:color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:inputType="textPassword" />
+
+                <ImageButton
+                    android:id="@+id/btn_tanker_key_confirm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
