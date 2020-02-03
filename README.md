@@ -44,4 +44,5 @@ This application contains the following graphic resources:\
 <a href="https://www.freepik.com/free-vector/blue-road-sign-icon-collection_838735.htm">Blue road sign with gas station</a> by ikaika from www.freepik.com \
 <a href="https://www.freepik.com/free-vector/location_2900811.htm">Location</a> by rawpixel.com from www.freepik.com \
 <a href="https://www.freepik.com/free-vector/road-icon-set_839475.htm">Road icon with two flags</a> by ikaika from www.freepik.com \
-<a href="https://www.flaticon.com/free-icon/gas-station_483497">Gas station</a> by Those Icons from www.flaticon.com
+<a href="https://www.flaticon.com/free-icon/gas-station_483497">Gas station</a> by Those Icons from www.flaticon.com \
+<a href="https://www.freepik.com/free-vector/airport-board-font_848504.htm">Airport board font</a> by rocketpixel from www.freepik.com
