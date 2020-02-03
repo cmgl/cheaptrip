@@ -1,6 +1,6 @@
 [![Travis (.org)](https://img.shields.io/travis/cmgl/cheaptrip)](https://travis-ci.org/cmgl/cheaptrip)
-![GitHub](https://img.shields.io/github/license/cmgl/cheaptrip)
-![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/cmgl/cheaptrip)
+[![GitHub](https://img.shields.io/github/license/cmgl/cheaptrip)](https://github.com/cmgl/cheaptrip/blob/master/LICENSE.md)
+[![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/cmgl/cheaptrip)](https://github.com/cmgl/cheaptrip/releases)
 
 
 # CheapTrip
@@ -18,6 +18,8 @@ This program is free software: you can redistribute it and/or modify it under th
 This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Affero General Public License for more details.
 
 You should have received a copy of the GNU Affero General Public License along with this program.  If not, see https://opensource.org/licenses/AGPL-3.0.
+
+SPDX-License-Identifier: AGPL-3.0-or-later
 
 ## Open Source Notices
 Portions of this application contain the following open source software used under the specified license:\
@@ -42,4 +44,5 @@ This application contains the following graphic resources:\
 <a href="https://www.freepik.com/free-vector/blue-road-sign-icon-collection_838735.htm">Blue road sign with gas station</a> by ikaika from www.freepik.com \
 <a href="https://www.freepik.com/free-vector/location_2900811.htm">Location</a> by rawpixel.com from www.freepik.com \
 <a href="https://www.freepik.com/free-vector/road-icon-set_839475.htm">Road icon with two flags</a> by ikaika from www.freepik.com \
-<a href="https://www.flaticon.com/free-icon/gas-station_483497">Gas station</a> by Those Icons from www.flaticon.com
+<a href="https://www.flaticon.com/free-icon/gas-station_483497">Gas station</a> by Those Icons from www.flaticon.com \
+<a href="https://www.freepik.com/free-vector/airport-board-font_848504.htm">Airport board font</a> by rocketpixel from www.freepik.com
