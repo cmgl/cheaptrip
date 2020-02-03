@@ -75,7 +75,8 @@ public interface GasStationClient {
                                              @Query("lng") Double lon,
                                              @Query("rad") Double radius,
                                              @Query("type") FuelType type,
-                                             @Query("sort") Sort sort
+                                             @Query("sort") Sort sort,
+                                             @Query("sort") String apiKey
     );
 
     @Raw
@@ -84,25 +85,31 @@ public interface GasStationClient {
                                      @Query("lng") Double lon,
                                      @Query("rad") Double radius,
                                      @Query("type") String type,
-                                     @Query("sort") String sort
+                                     @Query("sort") String sort,
+                                     @Query("sort") String apiKey
     );
 
 
     /**
-     * TODO: Document
-     * @param lat
-     * @param lon
-     * @param radius
-     * @param type
-     * @param sort
-     * @return
+     * Gets all relevant GasStation with a specific radius(provided by argument radius).
+     * The area to search is determined by coordinate having Longitude long and Latitude lat
+     * For more info refer to https://tankerkoenig.de/
+     *
+     * @param lat   Latitude to start radial search
+     * @param lon   Longitude to start radial search
+     * @param radius    Radius to start radial search
+     * @param type      type of fuel
+     * @param sort      by distance or duration
+     * @return          A WebserviceResonse containing all Gasstations within a radius
      */
-    @GET("json/list.php?apikey="+API_KEY)
+    //@GET("json/list.php?apikey="+API_KEY)
+    @GET("json/list.php")
     Call<GasStationResponse> getStationsInRadius(   @Query("lat") Double lat,
                                                     @Query("lng") Double lon,
                                                     @Query("rad") Double radius,
                                                     @Query("type") String type,
-                                                    @Query("sort") String sort
+                                                    @Query("sort") String sort,
+                                                    @Query("apikey") String apiKey
     );
 
     @Csv

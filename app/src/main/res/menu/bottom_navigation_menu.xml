@@ -16,7 +16,7 @@
         android:icon="@android:drawable/ic_menu_preferences"
         android:title="Settings" />
     <item
-        android:id="@+id/bottom_nav_attributions"
+        android:id="@+id/bottom_nav_info"
         android:icon="@android:drawable/ic_menu_info_details"
         android:title="Info" />
 

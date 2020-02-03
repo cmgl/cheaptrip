@@ -341,7 +341,10 @@ public class CalcMapFragment extends Fragment {
 
 
     private void updateMarkers(List<TripLocation> tripLocationList,boolean updateBbox) {
-
+        if(tripLocationList == null || tripLocationList.isEmpty()){
+            Log.e("CHEAPTRIP","CalcMapFragment->updateMarkers: tripLocation list not set");
+            return;
+        }
 
         for(TripLocation tripLocation : tripLocationList){
             drawMarker(tripLocation);
@@ -349,6 +352,11 @@ public class CalcMapFragment extends Fragment {
 
         if(updateBbox) {
             BoundingBox boundingBox = MapActivity.determineBoundingBox(tripLocationList);
+
+            if(boundingBox == null){
+                Log.e("CHEAPTRIP","CalcMapFragment->updateMarkers: BoundingBox is null");
+                return;
+            }
 
             mMapView.zoomToBoundingBox(boundingBox, true,150);
             mMapView.invalidate();

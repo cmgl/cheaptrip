@@ -1,28 +1,21 @@
 package com.example.cheaptrip.views;
 
-import android.app.Activity;
-import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
-import android.util.Pair;
 import android.view.MenuItem;
-import android.view.View;
 
 import androidx.annotation.NonNull;
 
 import com.example.cheaptrip.R;
 import com.example.cheaptrip.activities.CalculationActivity;
 import com.example.cheaptrip.activities.GasStationActivity;
+import com.example.cheaptrip.activities.InfoActivity;
 import com.example.cheaptrip.activities.MainActivity;
 import com.example.cheaptrip.activities.MapActivity;
 
 import com.example.cheaptrip.activities.SettingsActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import java.util.Set;
 
 /**
  * This classes purpose is to provide bottom navigation bar functionality
@@ -84,6 +77,14 @@ public class Navigation {
                             return false;
                         }
                         intent = new Intent(context.getApplicationContext(), SettingsActivity.class);
+                        break;
+
+
+                    case R.id.bottom_nav_info:
+                        if(context instanceof InfoActivity){
+                            return false;
+                        }
+                        intent = new Intent(context.getApplicationContext(), InfoActivity.class);
                         break;
 
                     default: return false;

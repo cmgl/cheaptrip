@@ -14,6 +14,12 @@
     <string name="route_image_attribution">Image Extracted from pexels</string>
     <string name="select_fuel_type">Select Fuel Type</string>
 
+
+
+    <string name="Info">INFO</string>
+    <string name="license">LICENSE</string>
+    <string name="opensource_notice">http://www.google.com</string>
+
     <string-array name="fuel_type_array">
         <item>Select Fuel Type</item>
     </string-array>

@@ -1,6 +1,7 @@
 package com.example.cheaptrip.handlers.rest.station;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.example.cheaptrip.dao.database.GasStationDatabaseClient;
@@ -18,18 +19,35 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Response;
 
+import static com.example.cheaptrip.activities.SettingsActivity.CONFIG_KEY;
+import static com.example.cheaptrip.activities.SettingsActivity.TANKER_CONFIG_KEY;
+
 public class GasStationForRadiusHandler extends RestHandler<List<TripGasStation>,GasStationResponse> {
     // TODO: https://dev.azure.com/tankerkoenig/362e70d1-bafa-4cf7-a346-1f3613304973/_apis/git/repositories/0d6e7286-91e4-402c-af56-fa75be1f223d/items?path=%2Fprices%2F2019%2F12&versionType=Branch
     private final static String BASE_URL = "https://creativecommons.tankerkoenig.de/";
     private final static String API_KEY = "ad5b5cac-db85-4516-832d-1bc90df23946";
+
     private Context mContext;
 
 
     public GasStationForRadiusHandler(Context context, double lat, double lon, double radius, GasStationClient.FuelType fuelType) {
         super(BASE_URL);
         mContext = context;
+
+        SharedPreferences sharedPreferences =  context.getApplicationContext().getSharedPreferences(CONFIG_KEY, 0);
+        String apiKey = sharedPreferences.getString(TANKER_CONFIG_KEY,null);
+
+        if(apiKey == null){
+            apiKey = API_KEY;
+        }
+
+        if(sharedPreferences == null){
+            Log.e("CHEAPTRIP","SharedPreferences is null");
+            return;
+
+        }
         GasStationClient gasStationClient = super.getRetrofit().create(GasStationClient.class);
-        Call call = gasStationClient.getStationsInRadius(lat,lon,radius, "all", "dist");
+        Call call = gasStationClient.getStationsInRadius(lat,lon,radius, "all", "dist",apiKey);
 
         super.setCall(call);
     }
