@@ -8,6 +8,9 @@ The CheapTrip Android app for Advanced Methods of Software Engineering (AMSE) at
 
 Please visit [our API documentation](https://cmgl.github.io/cheaptrip/) for more details of the app implementation.
 
+## Screenshots
+<img src="/../readme/screenshots/screenshot_1.png" width="170" ><img src="/../readme/screenshots/screenshot_2.png" width="170" ><img src="/../readme/screenshots/screenshot_3.png" width="170" ><img src="/../readme/screenshots/screenshot_4.png" width="170" ><img src="/../readme/screenshots/screenshot_5.png" width="170" >
+
 ## License
 Copyright (C) 2020 Hannes Fleischer\
 Copyright (C) 2020 Cristian Mogildea\
